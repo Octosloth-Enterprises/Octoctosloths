@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Octosloths</string>
+    <string name="titleStr">My Resume Builder</string>
 </resources>
