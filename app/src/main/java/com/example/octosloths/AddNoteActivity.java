@@ -55,7 +55,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
 
 
         if(intent.hasExtra(EXTRA_ID)) { // we only sent id for editing
-            setTitle("Edit Mote");
+            setTitle("Edit Entry");
 
             // setting data
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
@@ -63,7 +63,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
         }
         else {
-            setTitle("Add Note");
+            setTitle("Add Entry");
         }
 
 
