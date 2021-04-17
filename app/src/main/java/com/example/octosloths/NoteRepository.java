@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+// BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
+
 public class NoteRepository { // abstraction between viewmodel and backend
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;

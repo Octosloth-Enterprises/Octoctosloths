@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+// BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
+
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> { // class to communicate note data to ui
 
     private List<Note> notes = new ArrayList<Note>();

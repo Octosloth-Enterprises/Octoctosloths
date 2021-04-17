@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+// BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
+
 public class NoteViewModel extends AndroidViewModel { // communication bt ui and backend
     // viewmodel should not hold references to ui views, its meant to outlive the ui and potential changes
 

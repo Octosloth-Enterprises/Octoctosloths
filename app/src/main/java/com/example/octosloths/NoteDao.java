@@ -9,6 +9,8 @@ import androidx.room.Update;
 
 import java.util.List;
 
+// BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
+
 @Dao // tells room that this is a dao interface
 public interface NoteDao { // backend
 

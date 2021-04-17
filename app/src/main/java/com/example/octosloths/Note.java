@@ -3,6 +3,8 @@ package com.example.octosloths;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
+
 @Entity(tableName = "note_table") // represent table in architecture
 public class Note { // data model
 
