@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Octosloths</string>
     <string name="titleStr">My Resume Builder</string>
+    <string name="entries2">ENTRIES</string>
+    <string name="title">Title:</string>
+    <string name="date">Date:</string>
+    <string name="place">Place:</string>
+    <string name="contact">Contact:</string>
+    <string name="next">Next:</string>
 </resources>
