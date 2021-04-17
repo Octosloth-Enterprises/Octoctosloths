@@ -29,6 +29,34 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    // dependencies for architecture
+
+    // lifecycle
+    def lifecycle_version = "2.3.1"
+    // def arch_version = "2.1.0"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version" // theres a newer version?
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    // annotation processor
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    // room api
+    def room_version = "2.2.6"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+
+    // for fab and cardview... not sure if implemented correctly bc of mappings to androidx (tutorial is 2 years old)
+    // implementation 'com.google.android.material:material-rc01' // from https://developer.android.com/jetpack/androidx/migrate/artifact-mappings
+    implementation 'androidx.cardview:cardview'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
