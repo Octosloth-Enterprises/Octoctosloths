@@ -38,11 +38,12 @@ public abstract class NoteDatabase extends RoomDatabase { // database of notes, 
         @Override // press ctrl + o for override methods
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute(); // autopopulating
+            // new PopulateDbAsyncTask(instance).execute(); // autopopulating
         }
     };
 
     // class for autopopulating
+    /*
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private NoteDao notedao;
 
@@ -60,5 +61,5 @@ public abstract class NoteDatabase extends RoomDatabase { // database of notes, 
         }
 
 
-    }
+    }*/
 }
