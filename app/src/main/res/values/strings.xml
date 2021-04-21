@@ -4,5 +4,5 @@
     <string name="pencil">pencil</string>
     <string name="copyright">Created by Octosloth Enterprises</string>
     <string name="entriesTitle">All Of My Entries:</string>
-    <string name="newEntryTitleIntial">New Entry</string>
+    <string name="newEntryTitleInitial">New Entry</string>
 </resources>
