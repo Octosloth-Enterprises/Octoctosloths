@@ -16,7 +16,7 @@ public class Note { // data model
 
     private String description;
 
-    private int prio;
+    private int prio; // not necessary
 
     public Note(String title, String description, int prio) {
         this.title = title;
