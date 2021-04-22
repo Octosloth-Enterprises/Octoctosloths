@@ -36,8 +36,11 @@ public class MainActivity extends AppCompatActivity { // hola
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.v("MainActivity: ", "onCreate entered");
         super.onCreate(savedInstanceState);
+        Log.v("MainActivity: ", "super.onCreate");
         setContentView(R.layout.activity_main);
+        Log.v("MainActivity: ", "set content view");
 
         /*button = (com.google.android.material.floatingactionbutton.FloatingActionButton) findViewById(R.id.floatingActionButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity { // hola
                 // will retrieve input in method onactivityresult
             }
         });
+        Log.v("MainActivity: ", "onClick set");
 
 
         // recycler view and ui communication
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity { // hola
                 intent.putExtra(AddNoteActivity.EXTRA_TITLE, note.getTitle());
                 intent.putExtra(AddNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
                 intent.putExtra(AddNoteActivity.EXTRA_PRIORITY, note.getPrio());
+                intent.putExtra(AddNoteActivity.EXTRA_HOURS, note.getHours() + ""); // sus
 
                 // starting activity
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
@@ -142,10 +147,13 @@ public class MainActivity extends AppCompatActivity { // hola
             // getting data
             String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
+            String hours = data.getStringExtra(AddNoteActivity.EXTRA_HOURS); // passing back as string
+            int hrs = Integer.parseInt(hours);
+
             int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
 
             // creating new note and inserting in database
-            Note note = new Note(title, description, priority);
+            Note note = new Note(title, description, priority, hrs);
             noteViewModel.insert(note);
 
             // toast for check
@@ -164,10 +172,13 @@ public class MainActivity extends AppCompatActivity { // hola
             // same as above
             String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
+            String hours = data.getStringExtra(AddNoteActivity.EXTRA_HOURS); // passing back as string
+            int hrs = Integer.parseInt(hours);
+
             int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
 
             // same as above
-            Note note = new Note(title, description, priority);
+            Note note = new Note(title, description, priority, hrs);
             note.setId(id);
             noteViewModel.update(note);
 

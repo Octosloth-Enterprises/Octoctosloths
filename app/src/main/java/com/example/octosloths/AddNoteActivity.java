@@ -2,6 +2,7 @@ package com.example.octosloths;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,17 +19,21 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
 
     // keys for intent, communication with main activity when saving note
     public static final String EXTRA_ID =
-            "com.example.architectureexample.EXTRA_ID";
+            "com.example.octosloths.EXTRA_ID";
     public static final String EXTRA_TITLE =
-            "com.example.architectureexample.EXTRA_TITLE";
+            "com.example.octosloths.EXTRA_TITLE";
     public static final String EXTRA_DESCRIPTION =
-            "com.example.architectureexample.EXTRA_DESCRIPTION";
+            "com.example.octosloths.EXTRA_DESCRIPTION";
     public static final String EXTRA_PRIORITY  =
-            "com.example.architectureexample.EXTRA_PRIORITY";
+            "com.example.octosloths.EXTRA_PRIORITY";
+    public static final String EXTRA_HOURS  =
+            "com.example.octosloths.EXTRA_HOURS";
+
 
     // ui inputs
     private EditText editTextTitle;
     private EditText editTextDescription;
+    private EditText editTextHours;
     private NumberPicker numberPickerPriority;
 
 
@@ -40,7 +45,10 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         // similar to what we've been doing in the past
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextDescription = findViewById(R.id.edit_text_description);
+        editTextHours = findViewById(R.id.edit_text_hours);
         numberPickerPriority = findViewById(R.id.number_picker_priority);
+
+        Log.v("AddNoteActivity: ", "onCreate entered");
 
         // setting min and max values of numberpicker
         numberPickerPriority.setMinValue(1);
@@ -60,6 +68,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             // setting data
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            editTextHours.setText(intent.getStringExtra(EXTRA_HOURS)); // for hours, is value necessary?
             numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
         }
         else {
@@ -74,6 +83,12 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         // getting value of ui fields
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
+
+        String hrs = editTextHours.getText().toString(); // cannot parse empty string
+        if(hrs.isEmpty())
+            hrs = "0";
+
+        // int hours = Integer.parseInt(hrs); // parsing to int for hours
         int priority = numberPickerPriority.getValue();
 
         // checking fields are not empty
@@ -89,6 +104,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         data.putExtra(EXTRA_TITLE, title);
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_PRIORITY, priority);
+        data.putExtra(EXTRA_HOURS, hrs);
 
 
         // for update situation

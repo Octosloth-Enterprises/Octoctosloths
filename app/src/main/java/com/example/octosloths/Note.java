@@ -18,10 +18,14 @@ public class Note { // data model
 
     private int prio; // not necessary
 
-    public Note(String title, String description, int prio) {
+    // for volunteering and extracurriculars
+    private int hours;
+
+    public Note(String title, String description, int prio, int hours) {
         this.title = title;
         this.description = description;
         this.prio = prio;
+        this.hours = hours;
     }
 
     public void setId(int id) {
@@ -48,6 +52,10 @@ public class Note { // data model
 
     public int getPrio() {
         return prio;
+    }
+
+    public int getHours() {
+        return hours;
     }
 
 }
