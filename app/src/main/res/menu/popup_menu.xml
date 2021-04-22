@@ -3,6 +3,9 @@
 
     <item
         android:id="@+id/one"
-        android:title="@string/newEntryTitleIntial" />
+        android:title="Basic Entry" />
+    <item
+        android:id="@+id/two"
+        android:title="Volunteering Entry" />
 
 </menu>

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.util.List;
@@ -27,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity { // hola
 
-    // com.google.android.material.floatingactionbutton.FloatingActionButton button;
+     com.google.android.material.floatingactionbutton.FloatingActionButton button;
 
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
@@ -42,35 +43,44 @@ public class MainActivity extends AppCompatActivity { // hola
         setContentView(R.layout.activity_main);
         Log.v("MainActivity: ", "set content view");
 
-        /*button = (com.google.android.material.floatingactionbutton.FloatingActionButton) findViewById(R.id.floatingActionButton);
-        button.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick (View view){
 
-               PopupMenu popupMenu = new PopupMenu(MainActivity.this, button);
-               popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
-
-                       popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                           @Override
-                           public boolean onMenuItemClick(MenuItem item) {
-                       Toast.makeText(MainActivity.this,"" + item.getTitle(),Toast.LENGTH_SHORT).show();
-                       return true;
-                   }
-
-               });
-                       popupMenu.show();
-           }
-       });*/
 
         // add button that will bring up the addnote page
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
         buttonAddNote.setOnClickListener(new View.OnClickListener() { // setting onclicklistener, when clicked will open new page
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
-                startActivityForResult(intent, ADD_NOTE_REQUEST); // method to start activity and get input back
+
                 // will retrieve input in method onactivityresult
+
+            PopupMenu popupMenu = new PopupMenu(MainActivity.this, buttonAddNote);
+            popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    int id = item.getItemId();
+
+                    if (id == R.id.one) {
+
+                        Intent intent1 = new Intent(MainActivity.this, AddNoteActivity.class);
+                        startActivityForResult(intent1, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    if (id == R.id.two) {
+
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivity.class);
+                        startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    return MainActivity.super.onOptionsItemSelected(item);
+                }
+            });
+                popupMenu.show();
+
             }
+
         });
         Log.v("MainActivity: ", "onClick set");
 
