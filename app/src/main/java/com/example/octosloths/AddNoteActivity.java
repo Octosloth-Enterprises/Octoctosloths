@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 
 public class AddNoteActivity extends AppCompatActivity { // for the adding note page
@@ -41,6 +43,9 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+
+       
+
 
         // similar to what we've been doing in the past
         editTextTitle = findViewById(R.id.edit_text_title);

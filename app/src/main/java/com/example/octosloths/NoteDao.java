@@ -17,6 +17,7 @@ public interface NoteDao { // backend
     @Insert // room will fill in all necessary code for the corresponding annotation
     void insert(Note note);
 
+
     // will use similiar functions for octosloth app: insert, update, and delete
     // will be very useful
     @Update

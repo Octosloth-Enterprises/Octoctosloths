@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity { // hola
                 return;
             }
 
-
             // same as above
             String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
