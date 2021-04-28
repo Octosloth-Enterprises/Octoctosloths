@@ -3,6 +3,9 @@ package com.example.octosloths;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
+import java.util.Date;
+
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 
 @Entity(tableName = "note_table") // represent table in architecture
@@ -21,11 +24,17 @@ public class Note { // data model
     // for volunteering and extracurriculars
     private int hours;
 
-    public Note(String title, String description, int prio, int hours) {
+    // for start and end date of the activity or experience
+    private Date startDate;
+    private Date endDate;
+
+    public Note(String title, String description, int prio, int hours, Date startDate, Date endDate) { // using calendar almost like wrapper class
         this.title = title;
         this.description = description;
         this.prio = prio;
         this.hours = hours;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public void setId(int id) {
@@ -57,5 +66,9 @@ public class Note { // data model
     public int getHours() {
         return hours;
     }
+
+    public Date getStartDate() { return startDate; }
+
+    public Date getEndDate() { return endDate; }
 
 }

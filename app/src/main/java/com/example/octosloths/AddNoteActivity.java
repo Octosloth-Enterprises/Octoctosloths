@@ -28,6 +28,16 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             "com.example.octosloths.EXTRA_PRIORITY";
     public static final String EXTRA_HOURS  =
             "com.example.octosloths.EXTRA_HOURS";
+    public static final String EXTRA_START_DATE  =
+            "com.example.octosloths.EXTRA_START_DATE";
+    public static final String EXTRA_END_DATE  =
+            "com.example.octosloths.EXTRA_END_DATE";
+
+    // for which type of entry they're entering
+    public static final String EXTRA_BASIC =
+            "com.example.octosloths.EXTRA_BASIC";
+    public static final String EXTRA_VOLUNTEERING =
+            "com.example.octosloths.EXTRA_VOLUNTEERING";
 
 
     // ui inputs

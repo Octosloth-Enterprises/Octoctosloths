@@ -28,10 +28,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity { // hola
 
-     com.google.android.material.floatingactionbutton.FloatingActionButton button;
+    com.google.android.material.floatingactionbutton.FloatingActionButton button;
 
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
+
 
     private NoteViewModel noteViewModel;
 
@@ -62,13 +63,13 @@ public class MainActivity extends AppCompatActivity { // hola
 
                     int id = item.getItemId();
 
-                    if (id == R.id.one) {
+                    if (id == R.id.one) { // basic
 
                         Intent intent1 = new Intent(MainActivity.this, AddNoteActivity.class);
                         startActivityForResult(intent1, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
-                    if (id == R.id.two) {
+                    if (id == R.id.two) { // volunteering
 
                         Intent intent2 = new Intent(MainActivity.this, AddNoteActivity.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity { // hola
                 intent.putExtra(AddNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
                 intent.putExtra(AddNoteActivity.EXTRA_PRIORITY, note.getPrio());
                 intent.putExtra(AddNoteActivity.EXTRA_HOURS, note.getHours() + ""); // sus
+
 
                 // starting activity
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
