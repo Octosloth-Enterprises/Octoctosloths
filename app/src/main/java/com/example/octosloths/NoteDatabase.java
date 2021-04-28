@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 
-@Database(entities = {Note.class}, version = 1)
+@Database(entities = {Note.class}, version = 2)
 public abstract class NoteDatabase extends RoomDatabase { // database of notes, backend
 
     // declaring vars and methods, not exactly sure the significance of each
