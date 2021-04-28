@@ -5,4 +5,12 @@
     <string name="copyright">Created by Octosloth Enterprises</string>
     <string name="entriesTitle">All Of My Entries:</string>
     <string name="newEntryTitleInitial">New Entry</string>
+    <string name="start_date">Start Date:</string>
+    <string name="priority">Priority:</string>
+    <string name="description">Description</string>
+    <string name="hours">Hours</string>
+    <string name="title">Title</string>
+    <string name="end_date">End Date:</string>
+    <string name="new_start_date">New Start Date</string>
+    <string name="new_end_date">New End Date</string>
 </resources>

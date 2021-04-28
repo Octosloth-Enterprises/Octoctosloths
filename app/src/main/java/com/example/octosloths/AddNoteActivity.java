@@ -1,16 +1,24 @@
 package com.example.octosloths;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
@@ -38,13 +46,77 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
     private EditText editTextHours;
     private NumberPicker numberPickerPriority;
 
+    private TextView mDisplayDate;
+    private TextView mDisplayDate2;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private DatePickerDialog.OnDateSetListener mDateSetListener2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
-       
+       mDisplayDate = (TextView) findViewById(R.id.textView7);
+       mDisplayDate.setOnClickListener(new View.OnClickListener() {
+           @RequiresApi(api = Build.VERSION_CODES.N)
+           @Override
+           public void onClick(View v) {
+               Calendar cal = Calendar.getInstance();
+               int year = cal.get(Calendar.YEAR);
+               int month = cal.get(Calendar.MONTH); 
+               int day = cal.get(Calendar.DAY_OF_MONTH);
+
+               DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
+                       android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,year,month,day);
+               dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+               dialog.show();
+           }
+       });
+
+       mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+           @Override
+           public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+               month = month + 1;
+               String date = month + "/" + dayOfMonth + "/" + year;
+               mDisplayDate.setText(date);
+
+
+           }
+       };
+
+        mDisplayDate2 = (TextView) findViewById(R.id.textView8);
+        mDisplayDate2.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
+                        android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = month + "/" + dayOfMonth + "/" + year;
+                mDisplayDate2.setText(date);
+
+
+            }
+        };
+
+
+
 
 
         // similar to what we've been doing in the past
