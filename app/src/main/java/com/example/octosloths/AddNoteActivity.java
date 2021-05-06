@@ -168,6 +168,8 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextHours.setText(intent.getStringExtra(EXTRA_HOURS)); // for hours, is value necessary?
             // numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
+            mDisplayDate.setText(intent.getStringExtra(EXTRA_START_DATE));
+            mDisplayDate2.setText(intent.getStringExtra(EXTRA_END_DATE));
 
 
         }

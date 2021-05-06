@@ -91,4 +91,17 @@ public class Note { // data model
 
     public Calendar getEndDate() { return endDate; }
 
+    // to make display easier
+    public String getStartDateStr() {
+        return startDate.get(Calendar.MONTH) + "/"
+                + startDate.get(Calendar.DAY_OF_MONTH) + "/"
+                + startDate.get(Calendar.YEAR);
+    }
+
+    public String getEndDateStr() {
+        return endDate.get(Calendar.MONTH) + "/"
+                + endDate.get(Calendar.DAY_OF_MONTH) + "/"
+                + endDate.get(Calendar.YEAR);
+    }
+
 }

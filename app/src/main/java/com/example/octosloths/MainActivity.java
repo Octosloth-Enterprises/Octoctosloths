@@ -152,9 +152,9 @@ public class MainActivity extends AppCompatActivity { // hola
                 int m1 = startDate.get(Calendar.MONTH);
                 int y1 = startDate.get(Calendar.YEAR);
 
-                int d2 = startDate.get(Calendar.DAY_OF_MONTH);
-                int m2 = startDate.get(Calendar.MONTH);
-                int y2 = startDate.get(Calendar.YEAR);
+                int d2 = endDate.get(Calendar.DAY_OF_MONTH);
+                int m2 = endDate.get(Calendar.MONTH);
+                int y2 = endDate.get(Calendar.YEAR);
 
                 String startDateStr = m1+"/"+d1+"/"+y1;
                 String endDateStr = m2+"/"+d2+"/"+y2;
@@ -162,6 +162,9 @@ public class MainActivity extends AppCompatActivity { // hola
                 // for debugging purposes
                 Toast.makeText(MainActivity.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
 
+                // putting the start and end dates as string extras
+                intent.putExtra(AddNoteActivity.EXTRA_START_DATE, startDateStr);
+                intent.putExtra(AddNoteActivity.EXTRA_END_DATE, endDateStr);
 
                 // starting activity
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
@@ -235,13 +238,32 @@ public class MainActivity extends AppCompatActivity { // hola
 
             int hrs = Integer.parseInt(hours);
 
+            // start date calendar object
+            String[] startDateStr = startDate.split("/"); // getting the textview to string
+            int m1 = Integer.parseInt(startDateStr[0]);
+            int d1 = Integer.parseInt(startDateStr[1]);
+            int y1 = Integer.parseInt(startDateStr[2]);
+
+            Calendar sDate = Calendar.getInstance(); // constructing calendar for today
+            sDate.set(y1, m1, d1); // setting actual attributes for calendar
+
+
+            // end date calendar object
+            String[] endDateStr = endDate.split("/");
+            int m2 = Integer.parseInt(endDateStr[0]);
+            int d2 = Integer.parseInt(endDateStr[1]);
+            int y2 = Integer.parseInt(endDateStr[2]);
+
+            Calendar eDate = Calendar.getInstance(); // constructing calendar for today
+            eDate.set(y2, m2, d2); // setting actual attributes for calendar
+
             // int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
 
             // placeholder date for passing to constructor
-            Calendar cal = Calendar.getInstance();
+            // Calendar cal = Calendar.getInstance();
 
             // same as above
-            Note note = new Note(title, description, hrs, cal, cal); // will change
+            Note note = new Note(title, description, hrs, sDate, eDate); // will change
             note.setId(id);
             noteViewModel.update(note);
 
