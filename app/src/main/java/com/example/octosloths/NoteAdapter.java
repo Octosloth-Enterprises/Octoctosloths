@@ -35,7 +35,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> { 
 
         holder.textViewTitle.setText(currentNote.getTitle()); // setting title
         holder.textViewDescription.setText(currentNote.getDescription()); // setting desc
-        holder.textViewPriority.setText(String.valueOf(currentNote.getPrio())); // setting prio
         // holder.textViewHours.setText(String.valueOf(currentNote.getHours())); // setting hours
 
 
@@ -64,14 +63,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> { 
     class NoteHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private TextView textViewDescription;
-        private TextView textViewPriority;
-        private TextView textViewHours;
+        // private TextView textViewHours;
 
         public NoteHolder(View view) { // view is the whole cardview
             super(view);
             textViewTitle = view.findViewById(R.id.text_view_title);
             textViewDescription = view.findViewById(R.id.text_view_description);
-            textViewPriority = view.findViewById(R.id.text_view_priority);
             // textViewHours = view.findViewById(R.id.text_view_hours);
 
             // edit screen when click on cardview

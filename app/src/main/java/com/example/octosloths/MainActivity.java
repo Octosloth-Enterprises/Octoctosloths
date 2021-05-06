@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import androidx.lifecycle.Observer; // previous version deprecated, mapping for androidx, android.arch.lifecycle.Observer
@@ -140,8 +142,25 @@ public class MainActivity extends AppCompatActivity { // hola
 
                 intent.putExtra(AddNoteActivity.EXTRA_TITLE, note.getTitle());
                 intent.putExtra(AddNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
-                intent.putExtra(AddNoteActivity.EXTRA_PRIORITY, note.getPrio());
                 intent.putExtra(AddNoteActivity.EXTRA_HOURS, note.getHours() + ""); // sus
+
+                // parsing calendar data, sending over via intent
+                Calendar startDate = note.getStartDate();
+                Calendar endDate = note.getEndDate();
+
+                int d1 = startDate.get(Calendar.DAY_OF_MONTH);
+                int m1 = startDate.get(Calendar.MONTH);
+                int y1 = startDate.get(Calendar.YEAR);
+
+                int d2 = startDate.get(Calendar.DAY_OF_MONTH);
+                int m2 = startDate.get(Calendar.MONTH);
+                int y2 = startDate.get(Calendar.YEAR);
+
+                String startDateStr = m1+"/"+d1+"/"+y1;
+                String endDateStr = m2+"/"+d2+"/"+y2;
+
+                // for debugging purposes
+                Toast.makeText(MainActivity.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
 
 
                 // starting activity
@@ -162,10 +181,36 @@ public class MainActivity extends AppCompatActivity { // hola
             String hours = data.getStringExtra(AddNoteActivity.EXTRA_HOURS); // passing back as string
             int hrs = Integer.parseInt(hours);
 
-            int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
+            String startDate = data.getStringExtra(AddNoteActivity.EXTRA_START_DATE);
+            String endDate = data.getStringExtra(AddNoteActivity.EXTRA_END_DATE);
+
+
+            // start date calendar object
+            String[] startDateStr = startDate.split("/"); // getting the textview to string
+            int m1 = Integer.parseInt(startDateStr[0]);
+            int d1 = Integer.parseInt(startDateStr[1]);
+            int y1 = Integer.parseInt(startDateStr[2]);
+
+            Calendar sDate = Calendar.getInstance(); // constructing calendar for today
+            sDate.set(y1, m1, d1); // setting actual attributes for calendar
+
+
+            // end date calendar object
+            String[] endDateStr = endDate.split("/");
+            int m2 = Integer.parseInt(endDateStr[0]);
+            int d2 = Integer.parseInt(endDateStr[1]);
+            int y2 = Integer.parseInt(endDateStr[2]);
+
+            Calendar eDate = Calendar.getInstance(); // constructing calendar for today
+            eDate.set(y2, m2, d2); // setting actual attributes for calendar
+
+            // int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
+
+            // placeholder date for passing to constructor
+            // Calendar cal = Calendar.getInstance();
 
             // creating new note and inserting in database
-            Note note = new Note(title, description, priority, hrs);
+            Note note = new Note(title, description, hrs, sDate, eDate); // will change cal
             noteViewModel.insert(note);
 
             // toast for check
@@ -184,12 +229,19 @@ public class MainActivity extends AppCompatActivity { // hola
             String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
             String hours = data.getStringExtra(AddNoteActivity.EXTRA_HOURS); // passing back as string
+
+            String startDate = data.getStringExtra(AddNoteActivity.EXTRA_START_DATE);
+            String endDate = data.getStringExtra(AddNoteActivity.EXTRA_END_DATE);
+
             int hrs = Integer.parseInt(hours);
 
-            int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
+            // int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
+
+            // placeholder date for passing to constructor
+            Calendar cal = Calendar.getInstance();
 
             // same as above
-            Note note = new Note(title, description, priority, hrs);
+            Note note = new Note(title, description, hrs, cal, cal); // will change
             note.setId(id);
             noteViewModel.update(note);
 

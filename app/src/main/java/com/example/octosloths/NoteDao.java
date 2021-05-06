@@ -29,6 +29,6 @@ public interface NoteDao { // backend
     @Query("DELETE FROM note_table") // defining database operations ourselves with @query
     void deleteAllNotes();
 
-    @Query("SELECT * FROM note_table ORDER BY endDate DESC")
+    @Query("SELECT * FROM note_table ORDER BY endDate DESC") // is this where I should put the converter class?
     LiveData<List<Note>> getAllNotes(); // live data, will update by itself
 }

@@ -7,11 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 
 @Database(entities = {Note.class}, version = 2)
+@TypeConverters({CalendarConverter.class}) // for a type converter hopefully?
+
 public abstract class NoteDatabase extends RoomDatabase { // database of notes, backend
 
     // declaring vars and methods, not exactly sure the significance of each

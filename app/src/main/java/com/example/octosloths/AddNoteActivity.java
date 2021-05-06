@@ -34,8 +34,8 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             "com.example.octosloths.EXTRA_TITLE";
     public static final String EXTRA_DESCRIPTION =
             "com.example.octosloths.EXTRA_DESCRIPTION";
-    public static final String EXTRA_PRIORITY  =
-            "com.example.octosloths.EXTRA_PRIORITY";
+    // public static final String EXTRA_PRIORITY  =
+            // "com.example.octosloths.EXTRA_PRIORITY";
     public static final String EXTRA_HOURS  =
             "com.example.octosloths.EXTRA_HOURS";
     public static final String EXTRA_START_DATE  =
@@ -54,29 +54,35 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
     private EditText editTextTitle;
     private EditText editTextDescription;
     private EditText editTextHours;
-    private NumberPicker numberPickerPriority;
+    // private NumberPicker numberPickerPriority;
 
     private TextView mDisplayDate;
     private TextView mDisplayDate2;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
+    private DatePicker datePickerStart;
+    private DatePicker datePickerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
+        // ui for displaying and selecting date
+        // start date
        mDisplayDate = (TextView) findViewById(R.id.textView7);
        mDisplayDate.setOnClickListener(new View.OnClickListener() {
            @RequiresApi(api = Build.VERSION_CODES.N)
            @Override
            public void onClick(View v) {
+               // sets default date to current date
                Calendar cal = Calendar.getInstance();
                int year = cal.get(Calendar.YEAR);
                int month = cal.get(Calendar.MONTH); 
                int day = cal.get(Calendar.DAY_OF_MONTH);
 
+               // shows new datepicker
                DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
                        android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,year,month,day);
                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -84,19 +90,23 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
            }
        });
 
-       mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+       mDateSetListener = new DatePickerDialog.OnDateSetListener() { // when date has been set
 
            @Override
            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                month = month + 1;
-               String date = month + "/" + dayOfMonth + "/" + year;
+               String date = month + "/" + dayOfMonth + "/" + year; // displaying date to user
                mDisplayDate.setText(date);
+               Toast.makeText(AddNoteActivity.this, "set display text 1 to: " + mDisplayDate.getId(), Toast.LENGTH_SHORT).show();
 
-
+                // assigns current view to start date
+               datePickerStart = view;
            }
        };
 
-        mDisplayDate2 = (TextView) findViewById(R.id.textView8);
+
+       // end date
+        mDisplayDate2 = (TextView) findViewById(R.id.textView8); // ???
         mDisplayDate2.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -107,7 +117,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
-                        android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,year,month,day);
+                        android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener2,year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -120,8 +130,9 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                 month = month + 1;
                 String date = month + "/" + dayOfMonth + "/" + year;
                 mDisplayDate2.setText(date);
+                Toast.makeText(AddNoteActivity.this, "set display text 2 to: " + mDisplayDate2.getId(), Toast.LENGTH_SHORT).show();
 
-
+                datePickerEnd = view;
             }
         };
 
@@ -133,13 +144,13 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextDescription = findViewById(R.id.edit_text_description);
         editTextHours = findViewById(R.id.edit_text_hours);
-        numberPickerPriority = findViewById(R.id.number_picker_priority);
+        // numberPickerPriority = findViewById(R.id.number_picker_priority);
 
         Log.v("AddNoteActivity: ", "onCreate entered");
 
         // setting min and max values of numberpicker
-        numberPickerPriority.setMinValue(1);
-        numberPickerPriority.setMaxValue(10);
+        // numberPickerPriority.setMinValue(1);
+        // numberPickerPriority.setMaxValue(10);
 
         // getting menu bar and setting icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
@@ -156,7 +167,9 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextHours.setText(intent.getStringExtra(EXTRA_HOURS)); // for hours, is value necessary?
-            numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
+            // numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
+
+
         }
         else {
             setTitle("Add Entry");
@@ -176,7 +189,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             hrs = "0";
 
         // int hours = Integer.parseInt(hrs); // parsing to int for hours
-        int priority = numberPickerPriority.getValue();
+        // int priority = numberPickerPriority.getValue();
 
         // checking fields are not empty
         if(title.trim().isEmpty() || description.trim().isEmpty()) {
@@ -185,13 +198,36 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             return;
         }
 
+        /*
+        // start date calendar object
+        String[] startDateStr = mDisplayDate.getText().toString().split("/"); // getting the textview to string
+        int m1 = Integer.parseInt(startDateStr[0]);
+        int d1 = Integer.parseInt(startDateStr[1]);
+        int y1 = Integer.parseInt(startDateStr[2]);
+
+        Calendar startDate = Calendar.getInstance(); // constructing calendar for today
+        startDate.set(y1, m1, d1); // setting actual attributes for calendar
+
+
+        // end date calendar object
+        String[] endDateStr = mDisplayDate2.getText().toString().split("/");
+        int m2 = Integer.parseInt(endDateStr[0]);
+        int d2 = Integer.parseInt(endDateStr[1]);
+        int y2 = Integer.parseInt(endDateStr[2]);
+
+        Calendar endDate = Calendar.getInstance(); // constructing calendar for today
+        startDate.set(y2, m2, d2); // setting actual attributes for calendar */
+
+
 
         // sending data back to main activity, not matter add or update
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, title);
         data.putExtra(EXTRA_DESCRIPTION, description);
-        data.putExtra(EXTRA_PRIORITY, priority);
+        // data.putExtra(EXTRA_PRIORITY, priority);
         data.putExtra(EXTRA_HOURS, hrs);
+        data.putExtra(EXTRA_START_DATE, mDisplayDate.getText().toString()); // start date sent over with an extra
+        data.putExtra(EXTRA_END_DATE, mDisplayDate2.getText().toString());
 
 
         // for update situation
