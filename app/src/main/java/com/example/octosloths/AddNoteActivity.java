@@ -220,7 +220,26 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         Calendar endDate = Calendar.getInstance(); // constructing calendar for today
         startDate.set(y2, m2, d2); // setting actual attributes for calendar */
 
+        // parsing the date and seeing if date is empty, will default to the current date
+        String startDateStr = mDisplayDate.getText().toString();
+        if(startDateStr.isEmpty()) {
+            Calendar calStart = Calendar.getInstance();
+            int yearStart = calStart.get(Calendar.YEAR);
+            int monthStart = calStart.get(Calendar.MONTH);
+            int dayStart = calStart.get(Calendar.DAY_OF_MONTH);
 
+            startDateStr = "" + monthStart + "/" + dayStart + "/" + yearStart;
+        }
+
+        String endDateStr = mDisplayDate2.getText().toString();
+        if(endDateStr.isEmpty()) {
+            Calendar calEnd = Calendar.getInstance();
+            int yearEnd = calEnd.get(Calendar.YEAR);
+            int monthEnd = calEnd.get(Calendar.MONTH);
+            int dayEnd = calEnd.get(Calendar.DAY_OF_MONTH);
+
+            endDateStr = "" + monthEnd + "/" + dayEnd + "/" + yearEnd;
+        }
 
         // sending data back to main activity, not matter add or update
         Intent data = new Intent();
@@ -228,8 +247,8 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         data.putExtra(EXTRA_DESCRIPTION, description);
         // data.putExtra(EXTRA_PRIORITY, priority);
         data.putExtra(EXTRA_HOURS, hrs);
-        data.putExtra(EXTRA_START_DATE, mDisplayDate.getText().toString()); // start date sent over with an extra
-        data.putExtra(EXTRA_END_DATE, mDisplayDate2.getText().toString());
+        data.putExtra(EXTRA_START_DATE, startDateStr); // start date sent over with an extra
+        data.putExtra(EXTRA_END_DATE, endDateStr);
 
 
         // for update situation
