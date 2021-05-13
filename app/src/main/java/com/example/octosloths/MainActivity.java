@@ -34,6 +34,29 @@ public class MainActivity extends AppCompatActivity { // hola
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
 
+    // keys for intent, communication with main activity when saving note
+    public static final String EXTRA_ID =
+            "com.example.octosloths.EXTRA_ID";
+    public static final String EXTRA_TITLE =
+            "com.example.octosloths.EXTRA_TITLE";
+    public static final String EXTRA_DESCRIPTION =
+            "com.example.octosloths.EXTRA_DESCRIPTION";
+    // public static final String EXTRA_PRIORITY  =
+    // "com.example.octosloths.EXTRA_PRIORITY";
+    public static final String EXTRA_HOURS  =
+            "com.example.octosloths.EXTRA_HOURS";
+    public static final String EXTRA_START_DATE  =
+            "com.example.octosloths.EXTRA_START_DATE";
+    public static final String EXTRA_END_DATE  =
+            "com.example.octosloths.EXTRA_END_DATE";
+    public static final String EXTRA_GPA  =
+            "com.example.octosloths.EXTRA_GPA";
+
+    // for which type of entry they're entering
+    public static final String EXTRA_BASIC =
+            "com.example.octosloths.EXTRA_BASIC";
+    public static final String EXTRA_VOLUNTEERING =
+            "com.example.octosloths.EXTRA_VOLUNTEERING";
 
     private NoteViewModel noteViewModel;
 
@@ -66,13 +89,31 @@ public class MainActivity extends AppCompatActivity { // hola
 
                     if (id == R.id.one) { // basic
 
-                        Intent intent1 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class);
+                        Intent intent1 = new Intent(MainActivity.this, AddNoteActivityBasic.class);
                         startActivityForResult(intent1, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.two) { // volunteering
 
                         Intent intent2 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class);
+                        startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    if (id == R.id.three) { // extracurricular
+
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityExtracurricular.class);
+                        startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    if (id == R.id.four) { // education
+
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityEducation.class);
+                        startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    if (id == R.id.five) { // award
+
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityAward.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
@@ -137,11 +178,11 @@ public class MainActivity extends AppCompatActivity { // hola
                 Log.v("MainActivity: ", "cardview has been clicked");
                 Log.v("MainActivity: ", "note is null: "+ (note == null));
 
-                intent.putExtra(AddNoteActivityVolunteering.EXTRA_ID, note.getId());
+                intent.putExtra(EXTRA_ID, note.getId());
 
-                intent.putExtra(AddNoteActivityVolunteering.EXTRA_TITLE, note.getTitle());
-                intent.putExtra(AddNoteActivityVolunteering.EXTRA_DESCRIPTION, note.getDescription());
-                intent.putExtra(AddNoteActivityVolunteering.EXTRA_HOURS, note.getHours() + ""); // sus
+                intent.putExtra(EXTRA_TITLE, note.getTitle());
+                intent.putExtra(EXTRA_DESCRIPTION, note.getDescription());
+                intent.putExtra(EXTRA_HOURS, note.getHours() + ""); // sus
 
                 // parsing calendar data, sending over via intent
                 Calendar startDate = note.getStartDate();
@@ -162,8 +203,8 @@ public class MainActivity extends AppCompatActivity { // hola
                 Toast.makeText(MainActivity.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
 
                 // putting the start and end dates as string extras
-                intent.putExtra(AddNoteActivityVolunteering.EXTRA_START_DATE, startDateStr);
-                intent.putExtra(AddNoteActivityVolunteering.EXTRA_END_DATE, endDateStr);
+                intent.putExtra(EXTRA_START_DATE, startDateStr);
+                intent.putExtra(EXTRA_END_DATE, endDateStr);
 
                 // starting activity
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
@@ -178,13 +219,13 @@ public class MainActivity extends AppCompatActivity { // hola
 
         if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) { // if the codes are the same
             // getting data
-            String title = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_TITLE);
-            String description = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_DESCRIPTION);
-            String hours = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_HOURS); // passing back as string
+            String title = data.getStringExtra(EXTRA_TITLE);
+            String description = data.getStringExtra(EXTRA_DESCRIPTION);
+            String hours = data.getStringExtra(EXTRA_HOURS); // passing back as string
             int hrs = Integer.parseInt(hours);
 
-            String startDate = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_END_DATE);
+            String startDate = data.getStringExtra(EXTRA_START_DATE);
+            String endDate = data.getStringExtra(EXTRA_END_DATE);
 
 
             // start date calendar object
@@ -228,12 +269,12 @@ public class MainActivity extends AppCompatActivity { // hola
             }
 
             // same as above
-            String title = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_TITLE);
-            String description = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_DESCRIPTION);
-            String hours = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_HOURS); // passing back as string
+            String title = data.getStringExtra(EXTRA_TITLE);
+            String description = data.getStringExtra(EXTRA_DESCRIPTION);
+            String hours = data.getStringExtra(EXTRA_HOURS); // passing back as string
 
-            String startDate = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(AddNoteActivityVolunteering.EXTRA_END_DATE);
+            String startDate = data.getStringExtra(EXTRA_START_DATE);
+            String endDate = data.getStringExtra(EXTRA_END_DATE);
 
             int hrs = Integer.parseInt(hours);
 

@@ -199,32 +199,12 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
             return;
         }
 
-        /*
-        // start date calendar object
-        String[] startDateStr = mDisplayDate.getText().toString().split("/"); // getting the textview to string
-        int m1 = Integer.parseInt(startDateStr[0]);
-        int d1 = Integer.parseInt(startDateStr[1]);
-        int y1 = Integer.parseInt(startDateStr[2]);
-
-        Calendar startDate = Calendar.getInstance(); // constructing calendar for today
-        startDate.set(y1, m1, d1); // setting actual attributes for calendar
-
-
-        // end date calendar object
-        String[] endDateStr = mDisplayDate2.getText().toString().split("/");
-        int m2 = Integer.parseInt(endDateStr[0]);
-        int d2 = Integer.parseInt(endDateStr[1]);
-        int y2 = Integer.parseInt(endDateStr[2]);
-
-        Calendar endDate = Calendar.getInstance(); // constructing calendar for today
-        startDate.set(y2, m2, d2); // setting actual attributes for calendar */
-
         // parsing the date and seeing if date is empty, will default to the current date
         String startDateStr = mDisplayDate.getText().toString();
         if(startDateStr.isEmpty()) {
             Calendar calStart = Calendar.getInstance();
             int yearStart = calStart.get(Calendar.YEAR);
-            int monthStart = calStart.get(Calendar.MONTH);
+            int monthStart = calStart.get(Calendar.MONTH) + 1;
             int dayStart = calStart.get(Calendar.DAY_OF_MONTH);
 
             startDateStr = "" + monthStart + "/" + dayStart + "/" + yearStart;
@@ -234,7 +214,7 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
         if(endDateStr.isEmpty()) {
             Calendar calEnd = Calendar.getInstance();
             int yearEnd = calEnd.get(Calendar.YEAR);
-            int monthEnd = calEnd.get(Calendar.MONTH);
+            int monthEnd = calEnd.get(Calendar.MONTH) + 1;
             int dayEnd = calEnd.get(Calendar.DAY_OF_MONTH);
 
             endDateStr = "" + monthEnd + "/" + dayEnd + "/" + yearEnd;

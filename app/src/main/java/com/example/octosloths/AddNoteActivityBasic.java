@@ -26,34 +26,9 @@ import java.util.Calendar;
 
 public class AddNoteActivityBasic extends AppCompatActivity { // for the adding note page
 
-    // keys for intent, communication with main activity when saving note
-    public static final String EXTRA_ID =
-            "com.example.octosloths.EXTRA_ID";
-    public static final String EXTRA_TITLE =
-            "com.example.octosloths.EXTRA_TITLE";
-    public static final String EXTRA_DESCRIPTION =
-            "com.example.octosloths.EXTRA_DESCRIPTION";
-    // public static final String EXTRA_PRIORITY  =
-            // "com.example.octosloths.EXTRA_PRIORITY";
-    public static final String EXTRA_HOURS  =
-            "com.example.octosloths.EXTRA_HOURS";
-    public static final String EXTRA_START_DATE  =
-            "com.example.octosloths.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE  =
-            "com.example.octosloths.EXTRA_END_DATE";
-
-    // for which type of entry they're entering
-    public static final String EXTRA_BASIC =
-            "com.example.octosloths.EXTRA_BASIC";
-    public static final String EXTRA_VOLUNTEERING =
-            "com.example.octosloths.EXTRA_VOLUNTEERING";
-
-
     // ui inputs
     private EditText editTextTitle;
     private EditText editTextDescription;
-    private EditText editTextHours;
-    // private NumberPicker numberPickerPriority;
 
     private TextView mDisplayDate;
     private TextView mDisplayDate2;
@@ -70,7 +45,7 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
 
         // ui for displaying and selecting date
         // start date
-       mDisplayDate = (TextView) findViewById(R.id.textView7);
+       mDisplayDate = (TextView) findViewById(R.id.textView7_basic);
        mDisplayDate.setOnClickListener(new View.OnClickListener() {
            @RequiresApi(api = Build.VERSION_CODES.N)
            @Override
@@ -105,7 +80,7 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
 
 
        // end date
-        mDisplayDate2 = (TextView) findViewById(R.id.textView8); // ???
+        mDisplayDate2 = (TextView) findViewById(R.id.textView8_basic);
         mDisplayDate2.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -140,16 +115,11 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
 
 
         // similar to what we've been doing in the past
-        editTextTitle = findViewById(R.id.edit_text_title);
-        editTextDescription = findViewById(R.id.edit_text_description);
-        editTextHours = findViewById(R.id.edit_text_hours);
-        // numberPickerPriority = findViewById(R.id.number_picker_priority);
+        editTextTitle = findViewById(R.id.edit_text_title_basic);
+        editTextDescription = findViewById(R.id.edit_text_description_basic);
 
         Log.v("AddNoteActivity: ", "onCreate entered");
 
-        // setting min and max values of numberpicker
-        // numberPickerPriority.setMinValue(1);
-        // numberPickerPriority.setMaxValue(10);
 
         // getting menu bar and setting icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
@@ -159,16 +129,14 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
         Intent intent = getIntent(); // getting intent that started this activity
 
 
-        if(intent.hasExtra(EXTRA_ID)) { // we only sent id for editing
+        if(intent.hasExtra(MainActivity.EXTRA_ID)) { // we only sent id for editing
             setTitle("Edit Entry");
 
             // setting data
-            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            editTextHours.setText(intent.getStringExtra(EXTRA_HOURS)); // for hours, is value necessary?
-            // numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
-            mDisplayDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            mDisplayDate2.setText(intent.getStringExtra(EXTRA_END_DATE));
+            editTextTitle.setText(intent.getStringExtra(MainActivity.EXTRA_TITLE));
+            editTextDescription.setText(intent.getStringExtra(MainActivity.EXTRA_DESCRIPTION));
+            mDisplayDate.setText(intent.getStringExtra(MainActivity.EXTRA_START_DATE));
+            mDisplayDate2.setText(intent.getStringExtra(MainActivity.EXTRA_END_DATE));
 
 
         }
@@ -185,12 +153,7 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
 
-        String hrs = editTextHours.getText().toString(); // cannot parse empty string
-        if(hrs.isEmpty())
-            hrs = "0";
-
-        // int hours = Integer.parseInt(hrs); // parsing to int for hours
-        // int priority = numberPickerPriority.getValue();
+        String hrs = "0";
 
         // checking fields are not empty
         if(title.trim().isEmpty() || description.trim().isEmpty()) {
@@ -199,32 +162,12 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
             return;
         }
 
-        /*
-        // start date calendar object
-        String[] startDateStr = mDisplayDate.getText().toString().split("/"); // getting the textview to string
-        int m1 = Integer.parseInt(startDateStr[0]);
-        int d1 = Integer.parseInt(startDateStr[1]);
-        int y1 = Integer.parseInt(startDateStr[2]);
-
-        Calendar startDate = Calendar.getInstance(); // constructing calendar for today
-        startDate.set(y1, m1, d1); // setting actual attributes for calendar
-
-
-        // end date calendar object
-        String[] endDateStr = mDisplayDate2.getText().toString().split("/");
-        int m2 = Integer.parseInt(endDateStr[0]);
-        int d2 = Integer.parseInt(endDateStr[1]);
-        int y2 = Integer.parseInt(endDateStr[2]);
-
-        Calendar endDate = Calendar.getInstance(); // constructing calendar for today
-        startDate.set(y2, m2, d2); // setting actual attributes for calendar */
-
         // parsing the date and seeing if date is empty, will default to the current date
         String startDateStr = mDisplayDate.getText().toString();
         if(startDateStr.isEmpty()) {
             Calendar calStart = Calendar.getInstance();
             int yearStart = calStart.get(Calendar.YEAR);
-            int monthStart = calStart.get(Calendar.MONTH);
+            int monthStart = calStart.get(Calendar.MONTH) + 1;
             int dayStart = calStart.get(Calendar.DAY_OF_MONTH);
 
             startDateStr = "" + monthStart + "/" + dayStart + "/" + yearStart;
@@ -234,7 +177,7 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
         if(endDateStr.isEmpty()) {
             Calendar calEnd = Calendar.getInstance();
             int yearEnd = calEnd.get(Calendar.YEAR);
-            int monthEnd = calEnd.get(Calendar.MONTH);
+            int monthEnd = calEnd.get(Calendar.MONTH) + 1;
             int dayEnd = calEnd.get(Calendar.DAY_OF_MONTH);
 
             endDateStr = "" + monthEnd + "/" + dayEnd + "/" + yearEnd;
@@ -242,18 +185,17 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
 
         // sending data back to main activity, not matter add or update
         Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, title);
-        data.putExtra(EXTRA_DESCRIPTION, description);
-        // data.putExtra(EXTRA_PRIORITY, priority);
-        data.putExtra(EXTRA_HOURS, hrs);
-        data.putExtra(EXTRA_START_DATE, startDateStr); // start date sent over with an extra
-        data.putExtra(EXTRA_END_DATE, endDateStr);
+        data.putExtra(MainActivity.EXTRA_TITLE, title);
+        data.putExtra(MainActivity.EXTRA_DESCRIPTION, description);
+        data.putExtra(MainActivity.EXTRA_HOURS, hrs);
+        data.putExtra(MainActivity.EXTRA_START_DATE, startDateStr); // start date sent over with an extra
+        data.putExtra(MainActivity.EXTRA_END_DATE, endDateStr);
 
 
         // for update situation
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        int id = getIntent().getIntExtra(MainActivity.EXTRA_ID, -1);
         if(id != -1) {
-            data.putExtra(EXTRA_ID, id); // only put the id in result intent if it is an update situation
+            data.putExtra(MainActivity.EXTRA_ID, id); // only put the id in result intent if it is an update situation
         }
 
         setResult(RESULT_OK, data); // can read later in main to check if everything went as planned
