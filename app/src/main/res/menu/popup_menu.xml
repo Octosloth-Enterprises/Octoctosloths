@@ -7,5 +7,14 @@
     <item
         android:id="@+id/two"
         android:title="Volunteering Entry" />
+    <item
+        android:id="@+id/three"
+        android:title="Extracurricular Entry" />
+    <item
+        android:id="@+id/four"
+        android:title="Education Entry" />
+    <item
+        android:id="@+id/five"
+        android:title="Award Entry" />
 
 </menu>

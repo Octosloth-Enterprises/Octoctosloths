@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,7 @@ import java.util.Calendar;
 
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 
-public class AddNoteActivity extends AppCompatActivity { // for the adding note page
+public class AddNoteActivityBasic extends AppCompatActivity { // for the adding note page
 
     // keys for intent, communication with main activity when saving note
     public static final String EXTRA_ID =
@@ -67,7 +66,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note);
+        setContentView(R.layout.activity_add_note_volunteering);
 
         // ui for displaying and selecting date
         // start date
@@ -83,7 +82,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                int day = cal.get(Calendar.DAY_OF_MONTH);
 
                // shows new datepicker
-               DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
+               DatePickerDialog dialog = new DatePickerDialog(AddNoteActivityBasic.this,
                        android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,year,month,day);
                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                dialog.show();
@@ -97,7 +96,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                month = month + 1;
                String date = month + "/" + dayOfMonth + "/" + year; // displaying date to user
                mDisplayDate.setText(date);
-               Toast.makeText(AddNoteActivity.this, "set display text 1 to: " + mDisplayDate.getId(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(AddNoteActivityBasic.this, "set display text 1 to: " + mDisplayDate.getId(), Toast.LENGTH_SHORT).show();
 
                 // assigns current view to start date
                datePickerStart = view;
@@ -116,7 +115,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
+                DatePickerDialog dialog = new DatePickerDialog(AddNoteActivityBasic.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener2,year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -130,7 +129,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                 month = month + 1;
                 String date = month + "/" + dayOfMonth + "/" + year;
                 mDisplayDate2.setText(date);
-                Toast.makeText(AddNoteActivity.this, "set display text 2 to: " + mDisplayDate2.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddNoteActivityBasic.this, "set display text 2 to: " + mDisplayDate2.getId(), Toast.LENGTH_SHORT).show();
 
                 datePickerEnd = view;
             }

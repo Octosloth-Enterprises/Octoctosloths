@@ -9,21 +9,29 @@
     tools:context=".AddNoteActivityVolunteering">
 
     <EditText
-        android:id="@+id/edit_text_title_basic"
+        android:id="@+id/edit_text_title_education"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
         android:inputType="text"/>
 
     <EditText
-        android:id="@+id/edit_text_description_basic"
+        android:id="@+id/edit_text_description_education"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Description"
         android:inputType="textMultiLine"/>
 
+    <EditText
+        android:id="@+id/edit_text_gpa_education"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/gpa"
+        android:inputType="numberDecimal"
+        android:autofillHints="" />
+
     <TextView
-        android:id="@+id/textView_basic"
+        android:id="@+id/textView_education"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -32,7 +40,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView2_basic"
+        android:id="@+id/textView2_education"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="@string/end_date"
@@ -42,7 +50,7 @@
         android:translationY="-24dp" />
 
     <TextView
-        android:id="@+id/textView7_basic"
+        android:id="@+id/textView7_education"
         android:layout_width="179dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -51,7 +59,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView8_basic"
+        android:id="@+id/textView8_education"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:hint="@string/new_end_date"

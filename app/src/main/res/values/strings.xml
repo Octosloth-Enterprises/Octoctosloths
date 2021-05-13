@@ -13,4 +13,7 @@
     <string name="end_date">End Date:</string>
     <string name="new_start_date">New Start Date</string>
     <string name="new_end_date">New End Date</string>
+    <string name="date_received">Date Received</string>
+    <string name="new_date_received">New Date</string>
+    <string name="gpa">GPA</string>
 </resources>
