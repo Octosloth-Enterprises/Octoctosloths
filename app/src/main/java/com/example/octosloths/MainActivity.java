@@ -53,10 +53,20 @@ public class MainActivity extends AppCompatActivity { // hola
             "com.example.octosloths.EXTRA_GPA";
 
     // for which type of entry they're entering
-    public static final String EXTRA_BASIC =
+    /*public static final String EXTRA_BASIC =
             "com.example.octosloths.EXTRA_BASIC";
     public static final String EXTRA_VOLUNTEERING =
             "com.example.octosloths.EXTRA_VOLUNTEERING";
+    public static final String EXTRA_AWARD =
+            "com.example.octosloths.EXTRA_AWARD";
+    public static final String EXTRA_EDUCATION =
+            "com.example.octosloths.EXTRA_EDUCATION";
+    public static final String EXTRA_EXTRACURRICULAR =
+            "com.example.octosloths.EXTRA_EXTRACURRICULAR";*/
+
+    // for entry type
+    public static final String EXTRA_ENTRY_TYPE =
+            "com.example.octosloths.EXTRA_ENTRY_TYPE";
 
     private NoteViewModel noteViewModel;
 
@@ -226,6 +236,8 @@ public class MainActivity extends AppCompatActivity { // hola
 
             String startDate = data.getStringExtra(EXTRA_START_DATE);
             String endDate = data.getStringExtra(EXTRA_END_DATE);
+            double gpa = Double.parseDouble(data.getStringExtra(EXTRA_GPA));
+            String entryType = data.getStringExtra(EXTRA_ENTRY_TYPE);
 
 
             // start date calendar object
@@ -253,14 +265,14 @@ public class MainActivity extends AppCompatActivity { // hola
             // Calendar cal = Calendar.getInstance();
 
             // creating new note and inserting in database
-            Note note = new Note(title, description, hrs, sDate, eDate); // will change cal
+            Note note = new Note(title, description, hrs, sDate, eDate, gpa, entryType); // will change cal
             noteViewModel.insert(note);
 
             // toast for check
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
         }
         else if(requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) { // for edit situation
-            int id = data.getIntExtra(AddNoteActivityVolunteering.EXTRA_ID, -1);
+            int id = data.getIntExtra(EXTRA_ID, -1);
 
 
             if(id == -1) { // if for some reason invalid id
@@ -275,6 +287,8 @@ public class MainActivity extends AppCompatActivity { // hola
 
             String startDate = data.getStringExtra(EXTRA_START_DATE);
             String endDate = data.getStringExtra(EXTRA_END_DATE);
+            double gpa = Double.parseDouble(data.getStringExtra(EXTRA_GPA));
+            String entryType = data.getStringExtra(EXTRA_ENTRY_TYPE);
 
             int hrs = Integer.parseInt(hours);
 
@@ -303,7 +317,7 @@ public class MainActivity extends AppCompatActivity { // hola
             // Calendar cal = Calendar.getInstance();
 
             // same as above
-            Note note = new Note(title, description, hrs, sDate, eDate); // will change
+            Note note = new Note(title, description, hrs, sDate, eDate, gpa, entryType); // will change
             note.setId(id);
             noteViewModel.update(note);
 

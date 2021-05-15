@@ -38,10 +38,12 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
     private DatePicker datePickerStart;
     private DatePicker datePickerEnd;
 
+    public static String ENTRY_TYPE = "BASIC";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note_volunteering);
+        setContentView(R.layout.activity_add_note_basic);
 
         // ui for displaying and selecting date
         // start date
@@ -130,7 +132,7 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
 
 
         if(intent.hasExtra(MainActivity.EXTRA_ID)) { // we only sent id for editing
-            setTitle("Edit Entry");
+            setTitle("Edit Basic Entry");
 
             // setting data
             editTextTitle.setText(intent.getStringExtra(MainActivity.EXTRA_TITLE));
@@ -141,7 +143,7 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
 
         }
         else {
-            setTitle("Add Entry");
+            setTitle("Add Basic Entry");
         }
 
 
@@ -154,6 +156,7 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
         String description = editTextDescription.getText().toString();
 
         String hrs = "0";
+        String gpa = "0.0";
 
         // checking fields are not empty
         if(title.trim().isEmpty() || description.trim().isEmpty()) {
@@ -190,6 +193,8 @@ public class AddNoteActivityBasic extends AppCompatActivity { // for the adding 
         data.putExtra(MainActivity.EXTRA_HOURS, hrs);
         data.putExtra(MainActivity.EXTRA_START_DATE, startDateStr); // start date sent over with an extra
         data.putExtra(MainActivity.EXTRA_END_DATE, endDateStr);
+        data.putExtra(MainActivity.EXTRA_GPA, gpa);
+        data.putExtra(MainActivity.EXTRA_ENTRY_TYPE, ENTRY_TYPE);
 
 
         // for update situation

@@ -26,29 +26,6 @@ import java.util.Calendar;
 
 public class AddNoteActivityExtracurricular extends AppCompatActivity { // for the adding note page
 
-    // keys for intent, communication with main activity when saving note
-    public static final String EXTRA_ID =
-            "com.example.octosloths.EXTRA_ID";
-    public static final String EXTRA_TITLE =
-            "com.example.octosloths.EXTRA_TITLE";
-    public static final String EXTRA_DESCRIPTION =
-            "com.example.octosloths.EXTRA_DESCRIPTION";
-    // public static final String EXTRA_PRIORITY  =
-            // "com.example.octosloths.EXTRA_PRIORITY";
-    public static final String EXTRA_HOURS  =
-            "com.example.octosloths.EXTRA_HOURS";
-    public static final String EXTRA_START_DATE  =
-            "com.example.octosloths.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE  =
-            "com.example.octosloths.EXTRA_END_DATE";
-
-    // for which type of entry they're entering
-    public static final String EXTRA_BASIC =
-            "com.example.octosloths.EXTRA_BASIC";
-    public static final String EXTRA_VOLUNTEERING =
-            "com.example.octosloths.EXTRA_VOLUNTEERING";
-
-
     // ui inputs
     private EditText editTextTitle;
     private EditText editTextDescription;
@@ -63,14 +40,16 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
     private DatePicker datePickerStart;
     private DatePicker datePickerEnd;
 
+    public static String ENTRY_TYPE = "EXTRACURRICULAR";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note_volunteering);
+        setContentView(R.layout.activity_add_note_extracurricular);
 
         // ui for displaying and selecting date
         // start date
-       mDisplayDate = (TextView) findViewById(R.id.textView7);
+       mDisplayDate = (TextView) findViewById(R.id.textView7_extracurricular);
        mDisplayDate.setOnClickListener(new View.OnClickListener() {
            @RequiresApi(api = Build.VERSION_CODES.N)
            @Override
@@ -105,7 +84,7 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
 
 
        // end date
-        mDisplayDate2 = (TextView) findViewById(R.id.textView8); // ???
+        mDisplayDate2 = (TextView) findViewById(R.id.textView8_extracurricular);
         mDisplayDate2.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -140,10 +119,8 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
 
 
         // similar to what we've been doing in the past
-        editTextTitle = findViewById(R.id.edit_text_title);
-        editTextDescription = findViewById(R.id.edit_text_description);
-        editTextHours = findViewById(R.id.edit_text_hours);
-        // numberPickerPriority = findViewById(R.id.number_picker_priority);
+        editTextTitle = findViewById(R.id.edit_text_title_extracurricular);
+        editTextDescription = findViewById(R.id.edit_text_description_extracurricular);
 
         Log.v("AddNoteActivity: ", "onCreate entered");
 
@@ -159,21 +136,19 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
         Intent intent = getIntent(); // getting intent that started this activity
 
 
-        if(intent.hasExtra(EXTRA_ID)) { // we only sent id for editing
-            setTitle("Edit Entry");
+        if(intent.hasExtra(MainActivity.EXTRA_ID)) { // we only sent id for editing
+            setTitle("Edit Extracurricular Entry");
 
             // setting data
-            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            editTextHours.setText(intent.getStringExtra(EXTRA_HOURS)); // for hours, is value necessary?
-            // numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
-            mDisplayDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            mDisplayDate2.setText(intent.getStringExtra(EXTRA_END_DATE));
+            editTextTitle.setText(intent.getStringExtra(MainActivity.EXTRA_TITLE));
+            editTextDescription.setText(intent.getStringExtra(MainActivity.EXTRA_DESCRIPTION));
+            mDisplayDate.setText(intent.getStringExtra(MainActivity.EXTRA_START_DATE));
+            mDisplayDate2.setText(intent.getStringExtra(MainActivity.EXTRA_END_DATE));
 
 
         }
         else {
-            setTitle("Add Entry");
+            setTitle("Add Extracurricular Entry");
         }
 
 
@@ -185,12 +160,8 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
 
-        String hrs = editTextHours.getText().toString(); // cannot parse empty string
-        if(hrs.isEmpty())
-            hrs = "0";
-
-        // int hours = Integer.parseInt(hrs); // parsing to int for hours
-        // int priority = numberPickerPriority.getValue();
+        String hrs = "0";
+        String gpa = "0.0";
 
         // checking fields are not empty
         if(title.trim().isEmpty() || description.trim().isEmpty()) {
@@ -222,18 +193,19 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
 
         // sending data back to main activity, not matter add or update
         Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, title);
-        data.putExtra(EXTRA_DESCRIPTION, description);
-        // data.putExtra(EXTRA_PRIORITY, priority);
-        data.putExtra(EXTRA_HOURS, hrs);
-        data.putExtra(EXTRA_START_DATE, startDateStr); // start date sent over with an extra
-        data.putExtra(EXTRA_END_DATE, endDateStr);
+        data.putExtra(MainActivity.EXTRA_TITLE, title);
+        data.putExtra(MainActivity.EXTRA_DESCRIPTION, description);
+        data.putExtra(MainActivity.EXTRA_HOURS, hrs);
+        data.putExtra(MainActivity.EXTRA_START_DATE, startDateStr); // start date sent over with an extra
+        data.putExtra(MainActivity.EXTRA_END_DATE, endDateStr);
+        data.putExtra(MainActivity.EXTRA_GPA, gpa);
+        data.putExtra(MainActivity.EXTRA_ENTRY_TYPE, ENTRY_TYPE);
 
 
         // for update situation
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        int id = getIntent().getIntExtra(MainActivity.EXTRA_ID, -1);
         if(id != -1) {
-            data.putExtra(EXTRA_ID, id); // only put the id in result intent if it is an update situation
+            data.putExtra(MainActivity.EXTRA_ID, id); // only put the id in result intent if it is an update situation
         }
 
         setResult(RESULT_OK, data); // can read later in main to check if everything went as planned

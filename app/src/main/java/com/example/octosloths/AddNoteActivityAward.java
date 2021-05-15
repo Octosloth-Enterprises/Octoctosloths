@@ -25,30 +25,6 @@ import java.util.Calendar;
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 
 public class AddNoteActivityAward extends AppCompatActivity { // for the adding note page
-
-    // keys for intent, communication with main activity when saving note
-    public static final String EXTRA_ID =
-            "com.example.octosloths.EXTRA_ID";
-    public static final String EXTRA_TITLE =
-            "com.example.octosloths.EXTRA_TITLE";
-    public static final String EXTRA_DESCRIPTION =
-            "com.example.octosloths.EXTRA_DESCRIPTION";
-    // public static final String EXTRA_PRIORITY  =
-            // "com.example.octosloths.EXTRA_PRIORITY";
-    public static final String EXTRA_HOURS  =
-            "com.example.octosloths.EXTRA_HOURS";
-    public static final String EXTRA_START_DATE  =
-            "com.example.octosloths.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE  =
-            "com.example.octosloths.EXTRA_END_DATE";
-
-    // for which type of entry they're entering
-    public static final String EXTRA_BASIC =
-            "com.example.octosloths.EXTRA_BASIC";
-    public static final String EXTRA_VOLUNTEERING =
-            "com.example.octosloths.EXTRA_VOLUNTEERING";
-
-
     // ui inputs
     // hours is automatic
     // start date is automatic
@@ -60,10 +36,13 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
 
     private DatePicker datePickerEnd;
 
+    // entry type to pass back to main
+    public static String ENTRY_TYPE = "AWARD";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note_volunteering);
+        setContentView(R.layout.activity_add_note_award);
 
         // ui for displaying and selecting date
         // start date
@@ -118,7 +97,7 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
         Intent intent = getIntent(); // getting intent that started this activity
 
 
-        if(intent.hasExtra(EXTRA_ID)) { // we only sent id for editing
+        if(intent.hasExtra(MainActivity.EXTRA_ID)) { // we only sent id for editing
             setTitle("Edit Award Entry");
 
             // setting data
@@ -142,6 +121,7 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
         String description = editTextDescription.getText().toString();
 
         String hrs = "0"; // hardcoded bc no hours for award
+        String gpa = "0.0"; // hardcoded bc no gpa for award
 
         // checking fields are not empty
         if(title.trim().isEmpty() || description.trim().isEmpty()) {
@@ -168,12 +148,14 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
         data.putExtra(MainActivity.EXTRA_HOURS, hrs);
         data.putExtra(MainActivity.EXTRA_START_DATE, startDateStr); // start date sent over with an extra
         data.putExtra(MainActivity.EXTRA_END_DATE, endDateStr);
+        data.putExtra(MainActivity.EXTRA_GPA, gpa);
+        data.putExtra(MainActivity.EXTRA_ENTRY_TYPE, ENTRY_TYPE);
 
 
         // for update situation
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        int id = getIntent().getIntExtra(MainActivity.EXTRA_ID, -1);
         if(id != -1) {
-            data.putExtra(EXTRA_ID, id); // only put the id in result intent if it is an update situation
+            data.putExtra(MainActivity.EXTRA_ID, id); // only put the id in result intent if it is an update situation
         }
 
         setResult(RESULT_OK, data); // can read later in main to check if everything went as planned

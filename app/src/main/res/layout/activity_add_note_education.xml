@@ -12,7 +12,7 @@
         android:id="@+id/edit_text_title_education"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title"
+        android:hint="Name of Institution"
         android:inputType="text"/>
 
     <EditText

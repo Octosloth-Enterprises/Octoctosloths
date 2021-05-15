@@ -11,6 +11,14 @@
         android:theme="@style/Theme.Octosloths">
         <activity android:name=".AddNoteActivityVolunteering"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityBasic"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityAward"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityEducation"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityExtracurricular"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity"
             android:launchMode="singleTop">
             <intent-filter>

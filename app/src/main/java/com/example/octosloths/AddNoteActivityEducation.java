@@ -39,10 +39,12 @@ public class AddNoteActivityEducation extends AppCompatActivity { // for the add
     private DatePicker datePickerStart;
     private DatePicker datePickerEnd;
 
+    public static String ENTRY_TYPE = "EDUCATION";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note_volunteering);
+        setContentView(R.layout.activity_add_note_education);
 
         // ui for displaying and selecting date
         // start date
@@ -131,19 +133,19 @@ public class AddNoteActivityEducation extends AppCompatActivity { // for the add
 
 
         if(intent.hasExtra(MainActivity.EXTRA_ID)) { // we only sent id for editing
-            setTitle("Edit Entry");
+            setTitle("Edit Education Entry");
 
             // setting data
             editTextTitle.setText(intent.getStringExtra(MainActivity.EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(MainActivity.EXTRA_DESCRIPTION));
-            // editTextGpa.setText(intent.getStringExtra(EXTRA_GPA));
+            editTextGpa.setText(intent.getStringExtra(MainActivity.EXTRA_GPA));
             mDisplayDate.setText(intent.getStringExtra(MainActivity.EXTRA_START_DATE));
             mDisplayDate2.setText(intent.getStringExtra(MainActivity.EXTRA_END_DATE));
 
 
         }
         else {
-            setTitle("Add Entry");
+            setTitle("Add Education Entry");
         }
 
 
@@ -191,7 +193,7 @@ public class AddNoteActivityEducation extends AppCompatActivity { // for the add
         Intent data = new Intent();
         data.putExtra(MainActivity.EXTRA_TITLE, title);
         data.putExtra(MainActivity.EXTRA_DESCRIPTION, description);
-        // data.putExtra(MainActivity.EXTRA_GPA, gpa);
+        data.putExtra(MainActivity.EXTRA_GPA, gpa);
         data.putExtra(MainActivity.EXTRA_HOURS, hrs);
         data.putExtra(MainActivity.EXTRA_START_DATE, startDateStr); // start date sent over with an extra
         data.putExtra(MainActivity.EXTRA_END_DATE, endDateStr);
