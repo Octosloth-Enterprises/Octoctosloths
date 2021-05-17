@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_basicentry"
+            android:icon= "@drawable/ic_basicentry"
+            android:title="Basic Entries"/>
+        <item android:id="@+id/nav_awardentry"
+            android:icon= "@drawable/ic_awardentry"
+            android:title="Award Entries"/>
+        <item android:id="@+id/nav_educationentry"
+            android:icon= "@drawable/ic_educationentry"
+            android:title="Education Entries"/>
+        <item android:id="@+id/nav_extracurricularentry"
+            android:icon= "@drawable/ic_extracurricularentry"
+            android:title="Extracurricular Entries"/>
+        <item android:id="@+id/nav_volunteerentry"
+            android:icon= "@drawable/ic_volunteerentry"
+            android:title="Volunteer Entries"/>
+    </group>
+</menu>

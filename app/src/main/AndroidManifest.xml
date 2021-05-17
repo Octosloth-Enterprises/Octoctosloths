@@ -12,7 +12,8 @@
         <activity android:name=".AddNoteActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Octosloths.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

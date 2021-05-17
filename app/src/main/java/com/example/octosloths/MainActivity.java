@@ -2,7 +2,11 @@ package com.example.octosloths;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -25,11 +29,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
+//NAVBAR:
 
-public class MainActivity extends AppCompatActivity { // hola
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{ // hola amogus
+    private DrawerLayout drawer;
     com.google.android.material.floatingactionbutton.FloatingActionButton button;
 
     public static final int ADD_NOTE_REQUEST = 1;
@@ -46,7 +52,23 @@ public class MainActivity extends AppCompatActivity { // hola
         setContentView(R.layout.activity_main);
         Log.v("MainActivity: ", "set content view");
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar); //setting action bar as toolbar
+        drawer= findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
+        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState(); //rotates hamburger icon with drawer
+        /*
+        if (savedInstanceState == null) {
+            //opens Basic Entries fragment when activity is started
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new BasicEntryFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_basicentry);
+        }*/
 
         // add button that will bring up the addnote page
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
@@ -290,9 +312,49 @@ public class MainActivity extends AppCompatActivity { // hola
                 noteViewModel.deleteAllNotes();
                 Toast.makeText(this, "All notes deleted", Toast.LENGTH_SHORT).show();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {// opens fragments
+        switch (item.getItemId()) {
+            case R.id.nav_basicentry: //opens Basic Entries fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new BasicEntryFragment()).commit();
+                break;
+            case R.id.nav_awardentry: //opens Award Entries fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AwardEntryFragment()).commit();
+                break;
+            case R.id.nav_educationentry: //opens Education Entries fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new EducationEntryFragment()).commit();
+                break;
+            case R.id.nav_extracurricularentry: //opens Extracurricular Entries fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ExtracurricularEntryFragment()).commit();
+                break;
+            case R.id.nav_volunteerentry: //opens Volunteer Entries fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new VolunteerEntryFragment()).commit();
+                break;
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() { //back button should close navigation drawer, not leave activity
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
+
+
