@@ -85,8 +85,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.v("MainActivity: ", "set content view");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); //setting action bar as toolbar
-        drawer= findViewById(R.id.drawer_layout);
+        setSupportActionBar(toolbar); // setting toolbar as action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // drawerToggle = setupDrawerToggle();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -94,6 +98,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState(); //rotates hamburger icon with drawer
+
+        // set an onlick listener for the hamburger
+        drawer.addDrawerListener(toggle);
+        /*toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
         /*
         if (savedInstanceState == null) {
             //opens Basic Entries fragment when activity is started
@@ -351,12 +365,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu); // will make this menu the menu of this activity, also in add note activity
         return true;
-    }
+    }*/
 
 
     @Override
