@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
+    public static final int CHANGE_PAGE_REQUEST = 3;
 
     // keys for intent, communication with main activity when saving note
     public static final String EXTRA_ID =
@@ -389,24 +390,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {// opens fragments
         switch (item.getItemId()) {
             case R.id.nav_basicentry: //opens Basic Entries fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new BasicEntryFragment()).commit();
+                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        // new BasicEntryFragment()).commit();
+
+                // start a new intent for displaying all the basic notes in a new layout
+                // main activity is analogous to all notes, but we can call it "home"
+                Intent intent1 = new Intent(MainActivity.this, AddNoteActivityBasic.class);
+                startActivityForResult(intent1, ADD_NOTE_REQUEST);
                 break;
+
             case R.id.nav_awardentry: //opens Award Entries fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AwardEntryFragment()).commit();
+                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        // new AwardEntryFragment()).commit();
+
+                Intent intent2 = new Intent(MainActivity.this, AddNoteActivityAward.class);
+                startActivityForResult(intent2, ADD_NOTE_REQUEST);
+
                 break;
+
             case R.id.nav_educationentry: //opens Education Entries fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new EducationEntryFragment()).commit();
+                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        // new EducationEntryFragment()).commit();
+
+                Intent intent3 = new Intent(MainActivity.this, AddNoteActivityEducation.class);
+                startActivityForResult(intent3, ADD_NOTE_REQUEST);
+
                 break;
+
             case R.id.nav_extracurricularentry: //opens Extracurricular Entries fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ExtracurricularEntryFragment()).commit();
+                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        // new ExtracurricularEntryFragment()).commit();
+
+                Intent intent4 = new Intent(MainActivity.this, AddNoteActivityExtracurricular.class);
+                startActivityForResult(intent4, ADD_NOTE_REQUEST);
+
                 break;
             case R.id.nav_volunteerentry: //opens Volunteer Entries fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new VolunteerEntryFragment()).commit();
+                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        // new VolunteerEntryFragment()).commit();
+
+                Intent intent5 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class);
+                startActivityForResult(intent5, ADD_NOTE_REQUEST);
+
                 break;
         }
 
