@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,36 +24,11 @@ import java.util.Calendar;
 
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 
-public class AddNoteActivity extends AppCompatActivity { // for the adding note page
-
-    // keys for intent, communication with main activity when saving note
-    public static final String EXTRA_ID =
-            "com.example.octosloths.EXTRA_ID";
-    public static final String EXTRA_TITLE =
-            "com.example.octosloths.EXTRA_TITLE";
-    public static final String EXTRA_DESCRIPTION =
-            "com.example.octosloths.EXTRA_DESCRIPTION";
-    // public static final String EXTRA_PRIORITY  =
-            // "com.example.octosloths.EXTRA_PRIORITY";
-    public static final String EXTRA_HOURS  =
-            "com.example.octosloths.EXTRA_HOURS";
-    public static final String EXTRA_START_DATE  =
-            "com.example.octosloths.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE  =
-            "com.example.octosloths.EXTRA_END_DATE";
-
-    // for which type of entry they're entering
-    public static final String EXTRA_BASIC =
-            "com.example.octosloths.EXTRA_BASIC";
-    public static final String EXTRA_VOLUNTEERING =
-            "com.example.octosloths.EXTRA_VOLUNTEERING";
-
-
+public class AddNoteActivityVolunteering extends AppCompatActivity { // for the adding note page
     // ui inputs
     private EditText editTextTitle;
     private EditText editTextDescription;
     private EditText editTextHours;
-    // private NumberPicker numberPickerPriority;
 
     private TextView mDisplayDate;
     private TextView mDisplayDate2;
@@ -64,14 +38,16 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
     private DatePicker datePickerStart;
     private DatePicker datePickerEnd;
 
+    public static String ENTRY_TYPE = "VOLUNTEERING";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note);
+        setContentView(R.layout.activity_add_note_volunteering);
 
         // ui for displaying and selecting date
         // start date
-       mDisplayDate = (TextView) findViewById(R.id.textView7);
+       mDisplayDate = (TextView) findViewById(R.id.textView7_volunteering);
        mDisplayDate.setOnClickListener(new View.OnClickListener() {
            @RequiresApi(api = Build.VERSION_CODES.N)
            @Override
@@ -83,7 +59,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                int day = cal.get(Calendar.DAY_OF_MONTH);
 
                // shows new datepicker
-               DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
+               DatePickerDialog dialog = new DatePickerDialog(AddNoteActivityVolunteering.this,
                        android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener,year,month,day);
                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                dialog.show();
@@ -97,7 +73,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                month = month + 1;
                String date = month + "/" + dayOfMonth + "/" + year; // displaying date to user
                mDisplayDate.setText(date);
-               Toast.makeText(AddNoteActivity.this, "set display text 1 to: " + mDisplayDate.getId(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(AddNoteActivityVolunteering.this, "set display text 1 to: " + mDisplayDate.getId(), Toast.LENGTH_SHORT).show();
 
                 // assigns current view to start date
                datePickerStart = view;
@@ -106,7 +82,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
 
 
        // end date
-        mDisplayDate2 = (TextView) findViewById(R.id.textView8); // ???
+        mDisplayDate2 = (TextView) findViewById(R.id.textView8_volunteering); // ???
         mDisplayDate2.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -116,7 +92,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(AddNoteActivity.this,
+                DatePickerDialog dialog = new DatePickerDialog(AddNoteActivityVolunteering.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,mDateSetListener2,year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -130,7 +106,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
                 month = month + 1;
                 String date = month + "/" + dayOfMonth + "/" + year;
                 mDisplayDate2.setText(date);
-                Toast.makeText(AddNoteActivity.this, "set display text 2 to: " + mDisplayDate2.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddNoteActivityVolunteering.this, "set display text 2 to: " + mDisplayDate2.getId(), Toast.LENGTH_SHORT).show();
 
                 datePickerEnd = view;
             }
@@ -141,9 +117,9 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
 
 
         // similar to what we've been doing in the past
-        editTextTitle = findViewById(R.id.edit_text_title);
-        editTextDescription = findViewById(R.id.edit_text_description);
-        editTextHours = findViewById(R.id.edit_text_hours);
+        editTextTitle = findViewById(R.id.edit_text_title_volunteering);
+        editTextDescription = findViewById(R.id.edit_text_description_volunteering);
+        editTextHours = findViewById(R.id.edit_text_hours_volunteering);
         // numberPickerPriority = findViewById(R.id.number_picker_priority);
 
         Log.v("AddNoteActivity: ", "onCreate entered");
@@ -160,21 +136,20 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         Intent intent = getIntent(); // getting intent that started this activity
 
 
-        if(intent.hasExtra(EXTRA_ID)) { // we only sent id for editing
-            setTitle("Edit Entry");
+        if(intent.hasExtra(MainActivity.EXTRA_ID)) { // we only sent id for editing
+            setTitle("Edit Volunteering Entry");
 
             // setting data
-            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            editTextHours.setText(intent.getStringExtra(EXTRA_HOURS)); // for hours, is value necessary?
-            // numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
-            mDisplayDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            mDisplayDate2.setText(intent.getStringExtra(EXTRA_END_DATE));
+            editTextTitle.setText(intent.getStringExtra(MainActivity.EXTRA_TITLE));
+            editTextDescription.setText(intent.getStringExtra(MainActivity.EXTRA_DESCRIPTION));
+            editTextHours.setText(intent.getStringExtra(MainActivity.EXTRA_HOURS)); // for hours, is value necessary?
+            mDisplayDate.setText(intent.getStringExtra(MainActivity.EXTRA_START_DATE));
+            mDisplayDate2.setText(intent.getStringExtra(MainActivity.EXTRA_END_DATE));
 
 
         }
         else {
-            setTitle("Add Entry");
+            setTitle("Add Volunteering Entry");
         }
 
 
@@ -190,8 +165,7 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
         if(hrs.isEmpty())
             hrs = "0";
 
-        // int hours = Integer.parseInt(hrs); // parsing to int for hours
-        // int priority = numberPickerPriority.getValue();
+        String gpa = "0.0";
 
         // checking fields are not empty
         if(title.trim().isEmpty() || description.trim().isEmpty()) {
@@ -200,42 +174,42 @@ public class AddNoteActivity extends AppCompatActivity { // for the adding note 
             return;
         }
 
-        /*
-        // start date calendar object
-        String[] startDateStr = mDisplayDate.getText().toString().split("/"); // getting the textview to string
-        int m1 = Integer.parseInt(startDateStr[0]);
-        int d1 = Integer.parseInt(startDateStr[1]);
-        int y1 = Integer.parseInt(startDateStr[2]);
+        // parsing the date and seeing if date is empty, will default to the current date
+        String startDateStr = mDisplayDate.getText().toString();
+        if(startDateStr.isEmpty()) {
+            Calendar calStart = Calendar.getInstance();
+            int yearStart = calStart.get(Calendar.YEAR);
+            int monthStart = calStart.get(Calendar.MONTH) + 1;
+            int dayStart = calStart.get(Calendar.DAY_OF_MONTH);
 
-        Calendar startDate = Calendar.getInstance(); // constructing calendar for today
-        startDate.set(y1, m1, d1); // setting actual attributes for calendar
+            startDateStr = "" + monthStart + "/" + dayStart + "/" + yearStart;
+        }
 
+        String endDateStr = mDisplayDate2.getText().toString();
+        if(endDateStr.isEmpty()) {
+            Calendar calEnd = Calendar.getInstance();
+            int yearEnd = calEnd.get(Calendar.YEAR);
+            int monthEnd = calEnd.get(Calendar.MONTH) + 1;
+            int dayEnd = calEnd.get(Calendar.DAY_OF_MONTH);
 
-        // end date calendar object
-        String[] endDateStr = mDisplayDate2.getText().toString().split("/");
-        int m2 = Integer.parseInt(endDateStr[0]);
-        int d2 = Integer.parseInt(endDateStr[1]);
-        int y2 = Integer.parseInt(endDateStr[2]);
-
-        Calendar endDate = Calendar.getInstance(); // constructing calendar for today
-        startDate.set(y2, m2, d2); // setting actual attributes for calendar */
-
-
+            endDateStr = "" + monthEnd + "/" + dayEnd + "/" + yearEnd;
+        }
 
         // sending data back to main activity, not matter add or update
         Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, title);
-        data.putExtra(EXTRA_DESCRIPTION, description);
-        // data.putExtra(EXTRA_PRIORITY, priority);
-        data.putExtra(EXTRA_HOURS, hrs);
-        data.putExtra(EXTRA_START_DATE, mDisplayDate.getText().toString()); // start date sent over with an extra
-        data.putExtra(EXTRA_END_DATE, mDisplayDate2.getText().toString());
+        data.putExtra(MainActivity.EXTRA_TITLE, title);
+        data.putExtra(MainActivity.EXTRA_DESCRIPTION, description);
+        data.putExtra(MainActivity.EXTRA_HOURS, hrs);
+        data.putExtra(MainActivity.EXTRA_START_DATE, startDateStr); // start date sent over with an extra
+        data.putExtra(MainActivity.EXTRA_END_DATE, endDateStr);
+        data.putExtra(MainActivity.EXTRA_ENTRY_TYPE, ENTRY_TYPE);
+        data.putExtra(MainActivity.EXTRA_GPA, gpa);
 
 
         // for update situation
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        int id = getIntent().getIntExtra(MainActivity.EXTRA_ID, -1);
         if(id != -1) {
-            data.putExtra(EXTRA_ID, id); // only put the id in result intent if it is an update situation
+            data.putExtra(MainActivity.EXTRA_ID, id); // only put the id in result intent if it is an update situation
         }
 
         setResult(RESULT_OK, data); // can read later in main to check if everything went as planned

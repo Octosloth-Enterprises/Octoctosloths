@@ -20,9 +20,8 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Observable;
+
 import androidx.lifecycle.Observer; // previous version deprecated, mapping for androidx, android.arch.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +40,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
 
+    // keys for intent, communication with main activity when saving note
+    public static final String EXTRA_ID =
+            "com.example.octosloths.EXTRA_ID";
+    public static final String EXTRA_TITLE =
+            "com.example.octosloths.EXTRA_TITLE";
+    public static final String EXTRA_DESCRIPTION =
+            "com.example.octosloths.EXTRA_DESCRIPTION";
+    // public static final String EXTRA_PRIORITY  =
+    // "com.example.octosloths.EXTRA_PRIORITY";
+    public static final String EXTRA_HOURS  =
+            "com.example.octosloths.EXTRA_HOURS";
+    public static final String EXTRA_START_DATE  =
+            "com.example.octosloths.EXTRA_START_DATE";
+    public static final String EXTRA_END_DATE  =
+            "com.example.octosloths.EXTRA_END_DATE";
+    public static final String EXTRA_GPA  =
+            "com.example.octosloths.EXTRA_GPA";
+
+    // for which type of entry they're entering
+    /*public static final String EXTRA_BASIC =
+            "com.example.octosloths.EXTRA_BASIC";
+    public static final String EXTRA_VOLUNTEERING =
+            "com.example.octosloths.EXTRA_VOLUNTEERING";
+    public static final String EXTRA_AWARD =
+            "com.example.octosloths.EXTRA_AWARD";
+    public static final String EXTRA_EDUCATION =
+            "com.example.octosloths.EXTRA_EDUCATION";
+    public static final String EXTRA_EXTRACURRICULAR =
+            "com.example.octosloths.EXTRA_EXTRACURRICULAR";*/
+
+    // for entry type
+    public static final String EXTRA_ENTRY_TYPE =
+            "com.example.octosloths.EXTRA_ENTRY_TYPE";
 
     private NoteViewModel noteViewModel;
 
@@ -89,13 +121,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if (id == R.id.one) { // basic
 
-                        Intent intent1 = new Intent(MainActivity.this, AddNoteActivity.class);
+                        Intent intent1 = new Intent(MainActivity.this, AddNoteActivityBasic.class);
                         startActivityForResult(intent1, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.two) { // volunteering
 
-                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivity.class);
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class);
+                        startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    if (id == R.id.three) { // extracurricular
+
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityExtracurricular.class);
+                        startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    if (id == R.id.four) { // education
+
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityEducation.class);
+                        startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
+                        return false;
+                    }
+                    if (id == R.id.five) { // award
+
+                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityAward.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
@@ -155,16 +205,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(Note note) {
                 // sending over note data to addnoteactivity
-                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
+                Intent intent = new Intent(MainActivity.this, AddNoteActivityVolunteering.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
 
                 Log.v("MainActivity: ", "cardview has been clicked");
                 Log.v("MainActivity: ", "note is null: "+ (note == null));
 
-                intent.putExtra(AddNoteActivity.EXTRA_ID, note.getId());
+                intent.putExtra(EXTRA_ID, note.getId());
 
-                intent.putExtra(AddNoteActivity.EXTRA_TITLE, note.getTitle());
-                intent.putExtra(AddNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
-                intent.putExtra(AddNoteActivity.EXTRA_HOURS, note.getHours() + ""); // sus
+                intent.putExtra(EXTRA_TITLE, note.getTitle());
+                intent.putExtra(EXTRA_DESCRIPTION, note.getDescription());
+                intent.putExtra(EXTRA_HOURS, note.getHours() + ""); // sus
 
                 // parsing calendar data, sending over via intent
                 Calendar startDate = note.getStartDate();
@@ -185,8 +235,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
 
                 // putting the start and end dates as string extras
-                intent.putExtra(AddNoteActivity.EXTRA_START_DATE, startDateStr);
-                intent.putExtra(AddNoteActivity.EXTRA_END_DATE, endDateStr);
+                intent.putExtra(EXTRA_START_DATE, startDateStr);
+                intent.putExtra(EXTRA_END_DATE, endDateStr);
 
                 // starting activity
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
@@ -201,13 +251,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) { // if the codes are the same
             // getting data
-            String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
-            String hours = data.getStringExtra(AddNoteActivity.EXTRA_HOURS); // passing back as string
+            String title = data.getStringExtra(EXTRA_TITLE);
+            String description = data.getStringExtra(EXTRA_DESCRIPTION);
+            String hours = data.getStringExtra(EXTRA_HOURS); // passing back as string
             int hrs = Integer.parseInt(hours);
 
-            String startDate = data.getStringExtra(AddNoteActivity.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(AddNoteActivity.EXTRA_END_DATE);
+            String startDate = data.getStringExtra(EXTRA_START_DATE);
+            String endDate = data.getStringExtra(EXTRA_END_DATE);
+            double gpa = Double.parseDouble(data.getStringExtra(EXTRA_GPA));
+            String entryType = data.getStringExtra(EXTRA_ENTRY_TYPE);
 
 
             // start date calendar object
@@ -235,14 +287,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Calendar cal = Calendar.getInstance();
 
             // creating new note and inserting in database
-            Note note = new Note(title, description, hrs, sDate, eDate); // will change cal
+            Note note = new Note(title, description, hrs, sDate, eDate, gpa, entryType); // will change cal
             noteViewModel.insert(note);
 
             // toast for check
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
         }
         else if(requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) { // for edit situation
-            int id = data.getIntExtra(AddNoteActivity.EXTRA_ID, -1);
+            int id = data.getIntExtra(EXTRA_ID, -1);
 
 
             if(id == -1) { // if for some reason invalid id
@@ -251,12 +303,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             // same as above
-            String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
-            String hours = data.getStringExtra(AddNoteActivity.EXTRA_HOURS); // passing back as string
+            String title = data.getStringExtra(EXTRA_TITLE);
+            String description = data.getStringExtra(EXTRA_DESCRIPTION);
+            String hours = data.getStringExtra(EXTRA_HOURS); // passing back as string
 
-            String startDate = data.getStringExtra(AddNoteActivity.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(AddNoteActivity.EXTRA_END_DATE);
+            String startDate = data.getStringExtra(EXTRA_START_DATE);
+            String endDate = data.getStringExtra(EXTRA_END_DATE);
+            double gpa = Double.parseDouble(data.getStringExtra(EXTRA_GPA));
+            String entryType = data.getStringExtra(EXTRA_ENTRY_TYPE);
 
             int hrs = Integer.parseInt(hours);
 
@@ -285,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Calendar cal = Calendar.getInstance();
 
             // same as above
-            Note note = new Note(title, description, hrs, sDate, eDate); // will change
+            Note note = new Note(title, description, hrs, sDate, eDate, gpa, entryType); // will change
             note.setId(id);
             noteViewModel.update(note);
 

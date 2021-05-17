@@ -25,40 +25,22 @@ public class Note { // data model
     // for volunteering and extracurriculars
     private int hours;
 
-    /*
-    public class CalendarConverter { // is this the right place to put this converter class? the error that I got traced to here
-        @TypeConverter
-        public Calendar storedStringToCal(String s) {
-            String[] arr = s.split(","); // comma separated calendar
-
-            int month = Integer.parseInt(arr[0]);
-            int day = Integer.parseInt(arr[1]);
-            int year = Integer.parseInt(arr[2]);
-
-            Calendar cal = Calendar.getInstance(); // constructing calendar for today
-            cal.set(year, month, day); // setting actual attributes for calendar
-            return cal;
-        }
-
-        @TypeConverter
-        public String calToStoredString(Calendar cal) {
-            return cal.get(Calendar.MONTH) + ","
-                    + cal.get(Calendar.DAY_OF_MONTH) + ","
-                    + cal.get(Calendar.YEAR); // string with all fields concatenated with commas
-        }
-    } */
-
-    // for start and end date of the activity or experience
     private Calendar startDate;
     private Calendar endDate;
 
+    private double gpa;
 
-    public Note(String title, String description, int hours, Calendar startDate, Calendar endDate) { // using calendar almost like wrapper class
+    private String entryType;
+
+
+    public Note(String title, String description, int hours, Calendar startDate, Calendar endDate, double gpa, String entryType) { // using calendar almost like wrapper class
         this.title = title;
         this.description = description;
         this.hours = hours;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.gpa = gpa;
+        this.entryType = entryType;
     }
 
     public void setId(int id) {
@@ -90,6 +72,10 @@ public class Note { // data model
     public Calendar getStartDate() { return startDate; }
 
     public Calendar getEndDate() { return endDate; }
+
+    public double getGpa() { return gpa; }
+
+    public String getEntryType() { return entryType; }
 
     // to make display easier
     public String getStartDateStr() {

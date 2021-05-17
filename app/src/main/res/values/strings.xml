@@ -15,4 +15,7 @@
     <string name="new_end_date">New End Date</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="date_received">Date Received</string>
+    <string name="new_date_received">New Date</string>
+    <string name="gpa">GPA</string>
 </resources>

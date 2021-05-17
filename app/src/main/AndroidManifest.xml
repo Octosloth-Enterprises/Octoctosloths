@@ -9,7 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Octosloths">
-        <activity android:name=".AddNoteActivity"
+        <activity android:name=".AddNoteActivityVolunteering"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityBasic"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityAward"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityEducation"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddNoteActivityExtracurricular"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity"
             android:launchMode="singleTop"
