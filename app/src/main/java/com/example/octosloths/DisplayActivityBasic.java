@@ -65,16 +65,20 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_display_basic); // new xml, very similar to activity_main
 
-        // Toolbar toolbar = findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar); // setting toolbar as action bar
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true); i was getting any error here saying This Activity already has an action bar supplied by the window decor... so I'm just trying to comment this out
-        /*
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // setting title of page
+        setTitle("Basic Entries");
+
+        // setting toolbar for new xml
+        Toolbar toolbar = findViewById(R.id.toolbar_display_basic);
+        setSupportActionBar(toolbar); // setting toolbar as action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_display_basic);
         // drawerToggle = setupDrawerToggle();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_display_basic);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -84,22 +88,10 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
 
         // set an onlick listener for the hamburger
         drawer.addDrawerListener(toggle);
-        /*toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });*/
-        /*
-        if (savedInstanceState == null) {
-            //opens Basic Entries fragment when activity is started
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new BasicEntryFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_basicentry);
-        }*/
 
         // add button that will bring up the addnote page
-        FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
+        FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note_display_basic);
         buttonAddNote.setOnClickListener(new View.OnClickListener() { // setting onclicklistener, when clicked will open new page
             @Override
             public void onClick(View v) {
@@ -157,7 +149,8 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
 
 
         // recycler view and ui communication
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        // this recycler view will contain just the basic cards
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_display_basic);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager); // layout manager for card view display
@@ -171,7 +164,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
         // is lifecycle-aware, so passing this will prevent mem leaks or crashes
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class); // changed from tutorial code since ViewModelProviders is deprecated, taking system suggestion to use ViewModelProvider constructor
 
-        // instead all the notes get the basic
+        // instead all the notes get all the BASIC notes
         noteViewModel.getAllBasicNotes().observe(this, new Observer<List<Note>>() {
 
             @Override
@@ -203,16 +196,12 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
             @Override
             public void onItemClick(Note note) {
                 // sending over note data to addnoteactivity
-                Intent intent = new Intent(DisplayActivityBasic.this, AddNoteActivityVolunteering.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
-
-                Log.v("MainActivity: ", "cardview has been clicked");
-                Log.v("MainActivity: ", "note is null: "+ (note == null));
+                Intent intent = new Intent(DisplayActivityBasic.this, AddNoteActivityBasic.class);
 
                 intent.putExtra(EXTRA_ID, note.getId());
 
                 intent.putExtra(EXTRA_TITLE, note.getTitle());
                 intent.putExtra(EXTRA_DESCRIPTION, note.getDescription());
-                intent.putExtra(EXTRA_HOURS, note.getHours() + ""); // sus
 
                 // parsing calendar data, sending over via intent
                 Calendar startDate = note.getStartDate();
@@ -228,9 +217,6 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
 
                 String startDateStr = m1+"/"+d1+"/"+y1;
                 String endDateStr = m2+"/"+d2+"/"+y2;
-
-                // for debugging purposes
-                Toast.makeText(DisplayActivityBasic.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
 
                 // putting the start and end dates as string extras
                 intent.putExtra(EXTRA_START_DATE, startDateStr);
@@ -279,11 +265,6 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
             Calendar eDate = Calendar.getInstance(); // constructing calendar for today
             eDate.set(y2, m2, d2); // setting actual attributes for calendar
 
-            // int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
-
-            // placeholder date for passing to constructor
-            // Calendar cal = Calendar.getInstance();
-
             // creating new note and inserting in database
             Note note = new Note(title, description, hrs, sDate, eDate, gpa, entryType); // will change cal
             noteViewModel.insert(note);
@@ -331,11 +312,6 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
             Calendar eDate = Calendar.getInstance(); // constructing calendar for today
             eDate.set(y2, m2, d2); // setting actual attributes for calendar
 
-            // int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
-
-            // placeholder date for passing to constructor
-            // Calendar cal = Calendar.getInstance();
-
             // same as above
             Note note = new Note(title, description, hrs, sDate, eDate, gpa, entryType); // will change
             note.setId(id);
@@ -356,7 +332,8 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
         return true;
     }*/
 
-
+    // this disappears if we try to make the menu a toolbar, not sure how to get it back, not sure if we necessarily need it
+    // toolbar is not in a separate xml, it's just in the activity_main, so I'm not sure as to how to add an item to the menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { // same as in addnoteactivity
         switch (item.getItemId()) {
@@ -369,6 +346,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
         }
     }
 
+    // when the drawer options are selected, where do they link and what do they do
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {// opens fragments
         switch (item.getItemId()) {
