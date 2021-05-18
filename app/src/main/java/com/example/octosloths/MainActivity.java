@@ -31,7 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
-//NAVBAR:
+//NAVBAR: https://www.youtube.com/watch?v=fGcMLu1GJEc, https://www.youtube.com/watch?v=zYVEMCiDcmY&t=24s, https://www.youtube.com/watch?v=bjYstsO1PgI&t=2s
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{ // hola amogus
     private DrawerLayout drawer;
