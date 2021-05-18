@@ -352,45 +352,45 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
         switch (item.getItemId()) {
             case R.id.nav_basicentry: //opens Basic Entries fragment
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        // new BasicEntryFragment()).commit();
+                // new BasicEntryFragment()).commit();
 
                 // start a new intent for displaying all the basic notes in a new layout
                 // main activity is analogous to all notes, but we can call it "home"
-                Intent intent1 = new Intent(DisplayActivityBasic.this, AddNoteActivityBasic.class);
+                Intent intent1 = new Intent(DisplayActivityBasic.this, DisplayActivityBasic.class);
                 startActivityForResult(intent1, ADD_NOTE_REQUEST);
                 break;
 
             case R.id.nav_awardentry: //opens Award Entries fragment
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        // new AwardEntryFragment()).commit();
+                // new AwardEntryFragment()).commit();
 
-                Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityAward.class);
+                Intent intent2 = new Intent(DisplayActivityBasic.this, DisplayActivityAward.class);
                 startActivityForResult(intent2, ADD_NOTE_REQUEST);
 
                 break;
 
             case R.id.nav_educationentry: //opens Education Entries fragment
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        // new EducationEntryFragment()).commit();
+                // new EducationEntryFragment()).commit();
 
-                Intent intent3 = new Intent(DisplayActivityBasic.this, AddNoteActivityEducation.class);
+                Intent intent3 = new Intent(DisplayActivityBasic.this, DisplayActivityEducation.class);
                 startActivityForResult(intent3, ADD_NOTE_REQUEST);
 
                 break;
 
             case R.id.nav_extracurricularentry: //opens Extracurricular Entries fragment
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        // new ExtracurricularEntryFragment()).commit();
+                // new ExtracurricularEntryFragment()).commit();
 
-                Intent intent4 = new Intent(DisplayActivityBasic.this, AddNoteActivityExtracurricular.class);
+                Intent intent4 = new Intent(DisplayActivityBasic.this, DisplayActivityExtracurricular.class);
                 startActivityForResult(intent4, ADD_NOTE_REQUEST);
 
                 break;
             case R.id.nav_volunteerentry: //opens Volunteer Entries fragment
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        // new VolunteerEntryFragment()).commit();
+                // new VolunteerEntryFragment()).commit();
 
-                Intent intent5 = new Intent(DisplayActivityBasic.this, AddNoteActivityVolunteering.class);
+                Intent intent5 = new Intent(DisplayActivityBasic.this, DisplayActivityVolunteering.class);
                 startActivityForResult(intent5, ADD_NOTE_REQUEST);
 
                 break;
