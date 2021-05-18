@@ -15,11 +15,13 @@ public class NoteViewModel extends AndroidViewModel { // communication bt ui and
 
     private NoteRepository repository;
     private LiveData<List<Note>> allNotes;
+    private LiveData<List<Note>> allBasicNotes;
 
     public NoteViewModel(@NonNull Application application) { // super constructor
         super(application);
         repository = new NoteRepository(application);
         allNotes = repository.getAllNotes();
+        allBasicNotes = repository.getAllBasicNotes(); // layer of abstraction, repository is actually getting from notedao
     }
 
     // database operation methods for our notedatabase
@@ -42,5 +44,9 @@ public class NoteViewModel extends AndroidViewModel { // communication bt ui and
 
     public LiveData<List<Note>> getAllNotes() {
         return allNotes;
+    }
+
+    public LiveData<List<Note>> getAllBasicNotes() {
+        return allBasicNotes;
     }
 }

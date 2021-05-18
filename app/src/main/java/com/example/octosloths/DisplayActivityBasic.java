@@ -1,5 +1,13 @@
 package com.example.octosloths;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -7,22 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.PopupMenu;
-import android.widget.Toast;
-
-import java.util.Calendar;
-import java.util.List;
-
-import androidx.lifecycle.Observer; // previous version deprecated, mapping for androidx, android.arch.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,12 +24,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Calendar;
+import java.util.List;
+
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 //NAVBAR:
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{ // hola amogus
+public class DisplayActivityBasic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{ // hola amogus
     private DrawerLayout drawer;
-    com.google.android.material.floatingactionbutton.FloatingActionButton button;
+    FloatingActionButton button;
 
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
@@ -59,18 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final String EXTRA_GPA  =
             "com.example.octosloths.EXTRA_GPA";
 
-    // for which type of entry they're entering
-    /*public static final String EXTRA_BASIC =
-            "com.example.octosloths.EXTRA_BASIC";
-    public static final String EXTRA_VOLUNTEERING =
-            "com.example.octosloths.EXTRA_VOLUNTEERING";
-    public static final String EXTRA_AWARD =
-            "com.example.octosloths.EXTRA_AWARD";
-    public static final String EXTRA_EDUCATION =
-            "com.example.octosloths.EXTRA_EDUCATION";
-    public static final String EXTRA_EXTRACURRICULAR =
-            "com.example.octosloths.EXTRA_EXTRACURRICULAR";*/
-
     // for entry type
     public static final String EXTRA_ENTRY_TYPE =
             "com.example.octosloths.EXTRA_ENTRY_TYPE";
@@ -79,16 +64,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.v("MainActivity: ", "onCreate entered");
         super.onCreate(savedInstanceState);
-        Log.v("MainActivity: ", "super.onCreate");
         setContentView(R.layout.activity_main);
-        Log.v("MainActivity: ", "set content view");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); // setting toolbar as action bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        // Toolbar toolbar = findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar); // setting toolbar as action bar
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true); i was getting any error here saying This Activity already has an action bar supplied by the window decor... so I'm just trying to comment this out
+        /*
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // drawerToggle = setupDrawerToggle();
 
@@ -108,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });*/
-
         /*
         if (savedInstanceState == null) {
             //opens Basic Entries fragment when activity is started
@@ -125,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 // will retrieve input in method onactivityresult
 
-            PopupMenu popupMenu = new PopupMenu(MainActivity.this, buttonAddNote);
+            PopupMenu popupMenu = new PopupMenu(DisplayActivityBasic.this, buttonAddNote);
             popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
 
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -136,35 +117,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if (id == R.id.one) { // basic
 
-                        Intent intent1 = new Intent(MainActivity.this, AddNoteActivityBasic.class);
+                        Intent intent1 = new Intent(DisplayActivityBasic.this, AddNoteActivityBasic.class);
                         startActivityForResult(intent1, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.two) { // volunteering
 
-                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class);
+                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityVolunteering.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.three) { // extracurricular
 
-                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityExtracurricular.class);
+                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityExtracurricular.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.four) { // education
 
-                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityEducation.class);
+                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityEducation.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.five) { // award
 
-                        Intent intent2 = new Intent(MainActivity.this, AddNoteActivityAward.class);
+                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityAward.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
-                    return MainActivity.super.onOptionsItemSelected(item);
+                    return DisplayActivityBasic.super.onOptionsItemSelected(item);
                 }
             });
                 popupMenu.show();
@@ -189,7 +170,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // is lifecycle-aware, so passing this will prevent mem leaks or crashes
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class); // changed from tutorial code since ViewModelProviders is deprecated, taking system suggestion to use ViewModelProvider constructor
-        noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+
+        // instead all the notes get the basic
+        noteViewModel.getAllBasicNotes().observe(this, new Observer<List<Note>>() {
 
             @Override
             public void onChanged(@Nullable List<Note> notes) {
@@ -210,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 noteViewModel.delete(noteAdapter.getNoteAt(viewHolder.getAdapterPosition())); // deleting note at adapter pos
-                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DisplayActivityBasic.this, "Note deleted", Toast.LENGTH_SHORT).show();
             }
         })).attachToRecyclerView(recyclerView); // must attach else will not work
 
@@ -220,164 +203,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(Note note) {
                 // sending over note data to addnoteactivity
-                if (note.getEntryType().equals("BASIC")) {
-                    Intent intent = new Intent(MainActivity.this, AddNoteActivityBasic.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
+                Intent intent = new Intent(DisplayActivityBasic.this, AddNoteActivityVolunteering.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
 
-                    Log.v("MainActivity: ", "entry type: " + note.getEntryType());
-                    Log.v("MainActivity: ", "note is null: "+ (note == null));
+                Log.v("MainActivity: ", "cardview has been clicked");
+                Log.v("MainActivity: ", "note is null: "+ (note == null));
 
-                    intent.putExtra(EXTRA_ID, note.getId());
+                intent.putExtra(EXTRA_ID, note.getId());
 
-                    intent.putExtra(EXTRA_TITLE, note.getTitle());
-                    intent.putExtra(EXTRA_DESCRIPTION, note.getDescription());
+                intent.putExtra(EXTRA_TITLE, note.getTitle());
+                intent.putExtra(EXTRA_DESCRIPTION, note.getDescription());
+                intent.putExtra(EXTRA_HOURS, note.getHours() + ""); // sus
 
-                    // parsing calendar data, sending over via intent
-                    Calendar startDate = note.getStartDate();
-                    Calendar endDate = note.getEndDate();
+                // parsing calendar data, sending over via intent
+                Calendar startDate = note.getStartDate();
+                Calendar endDate = note.getEndDate();
 
-                    int d1 = startDate.get(Calendar.DAY_OF_MONTH);
-                    int m1 = startDate.get(Calendar.MONTH);
-                    int y1 = startDate.get(Calendar.YEAR);
+                int d1 = startDate.get(Calendar.DAY_OF_MONTH);
+                int m1 = startDate.get(Calendar.MONTH);
+                int y1 = startDate.get(Calendar.YEAR);
 
-                    int d2 = endDate.get(Calendar.DAY_OF_MONTH);
-                    int m2 = endDate.get(Calendar.MONTH);
-                    int y2 = endDate.get(Calendar.YEAR);
+                int d2 = endDate.get(Calendar.DAY_OF_MONTH);
+                int m2 = endDate.get(Calendar.MONTH);
+                int y2 = endDate.get(Calendar.YEAR);
 
-                    String startDateStr = m1+"/"+d1+"/"+y1;
-                    String endDateStr = m2+"/"+d2+"/"+y2;
+                String startDateStr = m1+"/"+d1+"/"+y1;
+                String endDateStr = m2+"/"+d2+"/"+y2;
 
-                    // for debugging purposes
-                    Toast.makeText(MainActivity.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
+                // for debugging purposes
+                Toast.makeText(DisplayActivityBasic.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
 
-                    // putting the start and end dates as string extras
-                    intent.putExtra(EXTRA_START_DATE, startDateStr);
-                    intent.putExtra(EXTRA_END_DATE, endDateStr);
+                // putting the start and end dates as string extras
+                intent.putExtra(EXTRA_START_DATE, startDateStr);
+                intent.putExtra(EXTRA_END_DATE, endDateStr);
 
-                    // starting activity
-                    startActivityForResult(intent, EDIT_NOTE_REQUEST); }
-
-                else if (note.getEntryType().equals("VOLUNTEERING")) {
-                    Intent intent2 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
-
-                    intent2.putExtra(EXTRA_ID, note.getId());
-
-                    intent2.putExtra(EXTRA_TITLE, note.getTitle());
-                    intent2.putExtra(EXTRA_DESCRIPTION, note.getDescription());
-                    intent2.putExtra(EXTRA_HOURS, note.getHours() + ""); // sus
-
-                    // parsing calendar data, sending over via intent
-                    Calendar startDateV = note.getStartDate();
-                    Calendar endDateV = note.getEndDate();
-
-                    int d1V = startDateV.get(Calendar.DAY_OF_MONTH);
-                    int m1V = startDateV.get(Calendar.MONTH);
-                    int y1V = startDateV.get(Calendar.YEAR);
-
-                    int d2V = endDateV.get(Calendar.DAY_OF_MONTH);
-                    int m2V = endDateV.get(Calendar.MONTH);
-                    int y2V = endDateV.get(Calendar.YEAR);
-
-                    String startDateStrV = m1V+"/"+d1V+"/"+y1V;
-                    String endDateStrV = m2V+"/"+d2V+"/"+y2V;
-
-                    // putting the start and end dates as string extras
-                    intent2.putExtra(EXTRA_START_DATE, startDateStrV);
-                    intent2.putExtra(EXTRA_END_DATE, endDateStrV);
-
-                    // starting activity
-                    startActivityForResult(intent2, EDIT_NOTE_REQUEST); }
-
-                else if(note.getEntryType().equals("EXTRACURRICULAR")) {
-                    Intent intent3 = new Intent(MainActivity.this, AddNoteActivityExtracurricular.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
-
-                    intent3.putExtra(EXTRA_ID, note.getId());
-
-                    intent3.putExtra(EXTRA_TITLE, note.getTitle());
-                    intent3.putExtra(EXTRA_DESCRIPTION, note.getDescription());
-
-                    // parsing calendar data, sending over via intent
-                    Calendar startDateEx = note.getStartDate();
-                    Calendar endDateEx = note.getEndDate();
-
-                    int d1Ex = startDateEx.get(Calendar.DAY_OF_MONTH);
-                    int m1Ex = startDateEx.get(Calendar.MONTH);
-                    int y1Ex = startDateEx.get(Calendar.YEAR);
-
-                    int d2Ex = endDateEx.get(Calendar.DAY_OF_MONTH);
-                    int m2Ex = endDateEx.get(Calendar.MONTH);
-                    int y2Ex = endDateEx.get(Calendar.YEAR);
-
-                    String startDateStrEx = m1Ex+"/"+d1Ex+"/"+y1Ex;
-                    String endDateStrEx = m2Ex+"/"+d2Ex+"/"+y2Ex;
-
-                    // putting the start and end dates as string extras
-                    intent3.putExtra(EXTRA_START_DATE, startDateStrEx);
-                    intent3.putExtra(EXTRA_END_DATE, endDateStrEx);
-
-                    // starting activity
-                    startActivityForResult(intent3, EDIT_NOTE_REQUEST); }
-
-                else if(note.getEntryType().equals("EDUCATION")){
-                    Intent intent4 = new Intent(MainActivity.this, AddNoteActivityEducation.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
-
-                    intent4.putExtra(EXTRA_ID, note.getId());
-
-                    intent4.putExtra(EXTRA_TITLE, note.getTitle());
-                    intent4.putExtra(EXTRA_DESCRIPTION, note.getDescription());
-                    intent4.putExtra(EXTRA_GPA, note.getGpa() + ""); // sus
-
-                    // parsing calendar data, sending over via intent
-                    Calendar startDateEd = note.getStartDate();
-                    Calendar endDateEd = note.getEndDate();
-
-                    int d1Ed = startDateEd.get(Calendar.DAY_OF_MONTH);
-                    int m1Ed = startDateEd.get(Calendar.MONTH);
-                    int y1Ed = startDateEd.get(Calendar.YEAR);
-
-                    int d2Ed = endDateEd.get(Calendar.DAY_OF_MONTH);
-                    int m2Ed = endDateEd.get(Calendar.MONTH);
-                    int y2Ed = endDateEd.get(Calendar.YEAR);
-
-                    String startDateStrEd = m1Ed+"/"+d1Ed+"/"+y1Ed;
-                    String endDateStrEd = m2Ed+"/"+d2Ed+"/"+y2Ed;
-
-                    // putting the start and end dates as string extras
-                    intent4.putExtra(EXTRA_START_DATE, startDateStrEd);
-                    intent4.putExtra(EXTRA_END_DATE, endDateStrEd);
-
-                    // starting activity
-                    startActivityForResult(intent4, EDIT_NOTE_REQUEST);}
-
-                else if(note.getEntryType().equals("AWARD")){
-                    Intent intent5 = new Intent(MainActivity.this, AddNoteActivityAward.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
-
-                    intent5.putExtra(EXTRA_ID, note.getId());
-
-                    intent5.putExtra(EXTRA_TITLE, note.getTitle());
-                    intent5.putExtra(EXTRA_DESCRIPTION, note.getDescription());
-
-                    // parsing calendar data, sending over via intent
-                    Calendar startDateA = note.getStartDate();
-                    Calendar endDateA = note.getEndDate();
-
-                    int d1A = startDateA.get(Calendar.DAY_OF_MONTH);
-                    int m1A = startDateA.get(Calendar.MONTH);
-                    int y1A = startDateA.get(Calendar.YEAR);
-
-                    int d2A = endDateA.get(Calendar.DAY_OF_MONTH);
-                    int m2A = endDateA.get(Calendar.MONTH);
-                    int y2A = endDateA.get(Calendar.YEAR);
-
-                    String startDateStrA = m1A+"/"+d1A+"/"+y1A;
-                    String endDateStrA = m2A+"/"+d2A+"/"+y2A;
-
-                    // putting the start and end dates as string extras
-                    intent5.putExtra(EXTRA_START_DATE, startDateStrA);
-                    intent5.putExtra(EXTRA_END_DATE, endDateStrA);
-
-                    // starting activity
-                    startActivityForResult(intent5, EDIT_NOTE_REQUEST);
-                }
+                // starting activity
+                startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
         });
     }
@@ -518,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 // start a new intent for displaying all the basic notes in a new layout
                 // main activity is analogous to all notes, but we can call it "home"
-                Intent intent1 = new Intent(MainActivity.this, DisplayActivityBasic.class);
+                Intent intent1 = new Intent(DisplayActivityBasic.this, AddNoteActivityBasic.class);
                 startActivityForResult(intent1, ADD_NOTE_REQUEST);
                 break;
 
@@ -526,7 +386,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new AwardEntryFragment()).commit();
 
-                Intent intent2 = new Intent(MainActivity.this, AddNoteActivityAward.class);
+                Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityAward.class);
                 startActivityForResult(intent2, ADD_NOTE_REQUEST);
 
                 break;
@@ -535,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new EducationEntryFragment()).commit();
 
-                Intent intent3 = new Intent(MainActivity.this, AddNoteActivityEducation.class);
+                Intent intent3 = new Intent(DisplayActivityBasic.this, AddNoteActivityEducation.class);
                 startActivityForResult(intent3, ADD_NOTE_REQUEST);
 
                 break;
@@ -544,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new ExtracurricularEntryFragment()).commit();
 
-                Intent intent4 = new Intent(MainActivity.this, AddNoteActivityExtracurricular.class);
+                Intent intent4 = new Intent(DisplayActivityBasic.this, AddNoteActivityExtracurricular.class);
                 startActivityForResult(intent4, ADD_NOTE_REQUEST);
 
                 break;
@@ -552,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new VolunteerEntryFragment()).commit();
 
-                Intent intent5 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class);
+                Intent intent5 = new Intent(DisplayActivityBasic.this, AddNoteActivityVolunteering.class);
                 startActivityForResult(intent5, ADD_NOTE_REQUEST);
 
                 break;
