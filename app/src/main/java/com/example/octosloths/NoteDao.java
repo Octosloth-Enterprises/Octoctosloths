@@ -32,4 +32,7 @@ public interface NoteDao { // backend
     @Query("SELECT * FROM note_table ORDER BY endDate DESC") // is this where I should put the converter class?
     LiveData<List<Note>> getAllNotes(); // live data, will update by itself
 
+    // for getting basic notes
+    @Query("SELECT * FROM note_table WHERE entryType = 'BASIC'")
+    LiveData<List<Note>> getAllBasicNotes();
 }

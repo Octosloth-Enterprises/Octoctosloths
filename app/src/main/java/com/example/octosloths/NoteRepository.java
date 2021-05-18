@@ -12,11 +12,13 @@ import java.util.List;
 public class NoteRepository { // abstraction between viewmodel and backend
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
+    private LiveData<List<Note>> allBasicNotes;
 
     public NoteRepository(Application app) {
         NoteDatabase database = NoteDatabase.getInstance(app);
         noteDao = database.noteDao();
         allNotes = noteDao.getAllNotes();
+        allBasicNotes = noteDao.getAllBasicNotes();
     }
 
     // these methods are the methods that are exposed to the outside, so we don't have to worry about the backend, abstraction layer
@@ -38,6 +40,10 @@ public class NoteRepository { // abstraction between viewmodel and backend
 
     public LiveData<List<Note>> getAllNotes() {
         return allNotes;
+    }
+
+    public LiveData<List<Note>> getAllBasicNotes() {
+        return allBasicNotes;
     }
 
 
