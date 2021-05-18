@@ -129,6 +129,7 @@ public class AddNoteActivityVolunteering extends AppCompatActivity { // for the 
         // numberPickerPriority.setMaxValue(10);
 
         // getting menu bar and setting icons
+        // this will make us go back essentially, similar to an onclick
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
 

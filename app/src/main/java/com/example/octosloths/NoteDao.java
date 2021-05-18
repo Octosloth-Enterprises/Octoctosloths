@@ -35,4 +35,17 @@ public interface NoteDao { // backend
     // for getting basic notes
     @Query("SELECT * FROM note_table WHERE entryType = 'BASIC'")
     LiveData<List<Note>> getAllBasicNotes();
+
+    // similar methods for the rest
+    @Query("SELECT * FROM note_table WHERE entryType = 'VOLUNTEERING'")
+    LiveData<List<Note>> getAllVolunteeringNotes();
+
+    @Query("SELECT * FROM note_table WHERE entryType = 'EDUCATION'")
+    LiveData<List<Note>> getAllEducationNotes();
+
+    @Query("SELECT * FROM note_table WHERE entryType = 'EXTRACURRICULAR'")
+    LiveData<List<Note>> getAllExtracurricularNotes();
+
+    @Query("SELECT * FROM note_table WHERE entryType = 'AWARD'")
+    LiveData<List<Note>> getAllAwardNotes();
 }

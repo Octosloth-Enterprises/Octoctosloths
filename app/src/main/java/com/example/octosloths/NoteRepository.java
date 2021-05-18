@@ -13,12 +13,21 @@ public class NoteRepository { // abstraction between viewmodel and backend
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
     private LiveData<List<Note>> allBasicNotes;
+    private LiveData<List<Note>> allVolunteeringNotes;
+    private LiveData<List<Note>> allEducationNotes;
+    private LiveData<List<Note>> allExtracurricularNotes;
+    private LiveData<List<Note>> allAwardNotes;
 
     public NoteRepository(Application app) {
         NoteDatabase database = NoteDatabase.getInstance(app);
         noteDao = database.noteDao();
         allNotes = noteDao.getAllNotes();
+
         allBasicNotes = noteDao.getAllBasicNotes();
+        allVolunteeringNotes = noteDao.getAllVolunteeringNotes();
+        allEducationNotes = noteDao.getAllEducationNotes();
+        allExtracurricularNotes = noteDao.getAllExtracurricularNotes();
+        allAwardNotes = noteDao.getAllAwardNotes();
     }
 
     // these methods are the methods that are exposed to the outside, so we don't have to worry about the backend, abstraction layer
@@ -44,6 +53,22 @@ public class NoteRepository { // abstraction between viewmodel and backend
 
     public LiveData<List<Note>> getAllBasicNotes() {
         return allBasicNotes;
+    }
+
+    public LiveData<List<Note>> getAllVolunteeringNotes() {
+        return allVolunteeringNotes;
+    }
+
+    public LiveData<List<Note>> getAllEducationNotes() {
+        return allEducationNotes;
+    }
+
+    public LiveData<List<Note>> getAllExtracurricularNotes() {
+        return allExtracurricularNotes;
+    }
+
+    public LiveData<List<Note>> getAllAwardNotes() {
+        return allAwardNotes;
     }
 
 

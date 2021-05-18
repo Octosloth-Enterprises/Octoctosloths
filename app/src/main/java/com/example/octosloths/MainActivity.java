@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(Note note) {
                 // sending over note data to addnoteactivity
+                // lots of duplicate code, can definitely optimize
                 if (note.getEntryType().equals("BASIC")) {
                     Intent intent = new Intent(MainActivity.this, AddNoteActivityBasic.class); // saying that it cannot resolve addeditnoteactivity, oh well, i'm assuming naming conventions don't matter
 
@@ -526,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new AwardEntryFragment()).commit();
 
-                Intent intent2 = new Intent(MainActivity.this, AddNoteActivityAward.class);
+                Intent intent2 = new Intent(MainActivity.this, DisplayActivityAward.class);
                 startActivityForResult(intent2, ADD_NOTE_REQUEST);
 
                 break;
@@ -535,7 +536,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new EducationEntryFragment()).commit();
 
-                Intent intent3 = new Intent(MainActivity.this, AddNoteActivityEducation.class);
+                Intent intent3 = new Intent(MainActivity.this, DisplayActivityEducation.class);
                 startActivityForResult(intent3, ADD_NOTE_REQUEST);
 
                 break;
@@ -544,7 +545,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new ExtracurricularEntryFragment()).commit();
 
-                Intent intent4 = new Intent(MainActivity.this, AddNoteActivityExtracurricular.class);
+                Intent intent4 = new Intent(MainActivity.this, DisplayActivityExtracurricular.class);
                 startActivityForResult(intent4, ADD_NOTE_REQUEST);
 
                 break;
@@ -552,7 +553,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         // new VolunteerEntryFragment()).commit();
 
-                Intent intent5 = new Intent(MainActivity.this, AddNoteActivityVolunteering.class);
+                Intent intent5 = new Intent(MainActivity.this, DisplayActivityVolunteering.class);
                 startActivityForResult(intent5, ADD_NOTE_REQUEST);
 
                 break;

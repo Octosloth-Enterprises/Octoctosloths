@@ -30,7 +30,7 @@ import java.util.List;
 // BASED ON TUTORIAL: https://www.youtube.com/playlist?list=PLrnPJCHvNZuDihTpkRs6SpZhqgBqPU118
 //NAVBAR:
 
-public class DisplayActivityBasic extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{ // hola amogus
+public class DisplayActivityEducation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{ // hola amogus
     private DrawerLayout drawer;
     FloatingActionButton button;
 
@@ -65,20 +65,20 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_basic); // new xml, very similar to activity_main
+        setContentView(R.layout.activity_display_education); // new xml, very similar to activity_main
 
         // setting title of page
-        setTitle("Basic Entries");
+        setTitle("Education Entries");
 
         // setting toolbar for new xml
-        Toolbar toolbar = findViewById(R.id.toolbar_display_basic);
+        Toolbar toolbar = findViewById(R.id.toolbar_display_education);
         setSupportActionBar(toolbar); // setting toolbar as action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_display_basic);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_display_education);
         // drawerToggle = setupDrawerToggle();
 
-        NavigationView navigationView = findViewById(R.id.nav_view_display_basic);
+        NavigationView navigationView = findViewById(R.id.nav_view_display_education);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -91,14 +91,14 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
 
 
         // add button that will bring up the addnote page
-        FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note_display_basic);
+        FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note_display_education);
         buttonAddNote.setOnClickListener(new View.OnClickListener() { // setting onclicklistener, when clicked will open new page
             @Override
             public void onClick(View v) {
 
                 // will retrieve input in method onactivityresult
 
-            PopupMenu popupMenu = new PopupMenu(DisplayActivityBasic.this, buttonAddNote);
+            PopupMenu popupMenu = new PopupMenu(DisplayActivityEducation.this, buttonAddNote);
             popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
 
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -109,35 +109,35 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
 
                     if (id == R.id.one) { // basic
 
-                        Intent intent1 = new Intent(DisplayActivityBasic.this, AddNoteActivityBasic.class);
+                        Intent intent1 = new Intent(DisplayActivityEducation.this, AddNoteActivityBasic.class);
                         startActivityForResult(intent1, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.two) { // volunteering
 
-                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityVolunteering.class);
+                        Intent intent2 = new Intent(DisplayActivityEducation.this, AddNoteActivityVolunteering.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.three) { // extracurricular
 
-                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityExtracurricular.class);
+                        Intent intent2 = new Intent(DisplayActivityEducation.this, AddNoteActivityExtracurricular.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.four) { // education
 
-                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityEducation.class);
+                        Intent intent2 = new Intent(DisplayActivityEducation.this, AddNoteActivityEducation.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
                     if (id == R.id.five) { // award
 
-                        Intent intent2 = new Intent(DisplayActivityBasic.this, AddNoteActivityAward.class);
+                        Intent intent2 = new Intent(DisplayActivityEducation.this, AddNoteActivityAward.class);
                         startActivityForResult(intent2, ADD_NOTE_REQUEST); // method to start activity and get input back
                         return false;
                     }
-                    return DisplayActivityBasic.super.onOptionsItemSelected(item);
+                    return DisplayActivityEducation.super.onOptionsItemSelected(item);
                 }
             });
                 popupMenu.show();
@@ -150,7 +150,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
 
         // recycler view and ui communication
         // this recycler view will contain just the basic cards
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_display_basic);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_display_education);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager); // layout manager for card view display
@@ -165,7 +165,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class); // changed from tutorial code since ViewModelProviders is deprecated, taking system suggestion to use ViewModelProvider constructor
 
         // instead all the notes get all the BASIC notes
-        noteViewModel.getAllBasicNotes().observe(this, new Observer<List<Note>>() {
+        noteViewModel.getAllEducationNotes().observe(this, new Observer<List<Note>>() {
 
             @Override
             public void onChanged(@Nullable List<Note> notes) {
@@ -186,7 +186,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 noteViewModel.delete(noteAdapter.getNoteAt(viewHolder.getAdapterPosition())); // deleting note at adapter pos
-                Toast.makeText(DisplayActivityBasic.this, "Note deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DisplayActivityEducation.this, "Note deleted", Toast.LENGTH_SHORT).show();
             }
         })).attachToRecyclerView(recyclerView); // must attach else will not work
 
@@ -196,7 +196,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
             @Override
             public void onItemClick(Note note) {
                 // sending over note data to addnoteactivity
-                Intent intent = new Intent(DisplayActivityBasic.this, AddNoteActivityBasic.class);
+                Intent intent = new Intent(DisplayActivityEducation.this, AddNoteActivityEducation.class);
 
                 intent.putExtra(EXTRA_ID, note.getId());
 
@@ -356,7 +356,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
 
                 // start a new intent for displaying all the basic notes in a new layout
                 // main activity is analogous to all notes, but we can call it "home"
-                Intent intent1 = new Intent(DisplayActivityBasic.this, DisplayActivityBasic.class);
+                Intent intent1 = new Intent(DisplayActivityEducation.this, DisplayActivityBasic.class);
                 startActivityForResult(intent1, ADD_NOTE_REQUEST);
                 break;
 
@@ -364,7 +364,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 // new AwardEntryFragment()).commit();
 
-                Intent intent2 = new Intent(DisplayActivityBasic.this, DisplayActivityAward.class);
+                Intent intent2 = new Intent(DisplayActivityEducation.this, DisplayActivityAward.class);
                 startActivityForResult(intent2, ADD_NOTE_REQUEST);
 
                 break;
@@ -373,7 +373,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 // new EducationEntryFragment()).commit();
 
-                Intent intent3 = new Intent(DisplayActivityBasic.this, DisplayActivityEducation.class);
+                Intent intent3 = new Intent(DisplayActivityEducation.this, DisplayActivityEducation.class);
                 startActivityForResult(intent3, ADD_NOTE_REQUEST);
 
                 break;
@@ -382,7 +382,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 // new ExtracurricularEntryFragment()).commit();
 
-                Intent intent4 = new Intent(DisplayActivityBasic.this, DisplayActivityExtracurricular.class);
+                Intent intent4 = new Intent(DisplayActivityEducation.this, DisplayActivityExtracurricular.class);
                 startActivityForResult(intent4, ADD_NOTE_REQUEST);
 
                 break;
@@ -390,7 +390,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 // new VolunteerEntryFragment()).commit();
 
-                Intent intent5 = new Intent(DisplayActivityBasic.this, DisplayActivityVolunteering.class);
+                Intent intent5 = new Intent(DisplayActivityEducation.this, DisplayActivityVolunteering.class);
                 startActivityForResult(intent5, ADD_NOTE_REQUEST);
 
                 break;
