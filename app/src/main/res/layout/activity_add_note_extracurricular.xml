@@ -8,12 +8,24 @@
     android:padding="16dp"
     tools:context=".AddNoteActivityExtracurricular">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:textSize="18sp"/>
+
     <EditText
         android:id="@+id/edit_text_title_extracurricular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
         android:inputType="text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/edit_text_description_extracurricular"

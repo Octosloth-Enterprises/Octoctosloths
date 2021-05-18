@@ -9,6 +9,12 @@
     tools:context=".AddNoteActivityVolunteering">
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:textSize="18sp"/>
+
     <EditText
         android:id="@+id/edit_text_title_volunteering"
         android:layout_width="match_parent"
@@ -17,6 +23,12 @@
         android:inputType="text"
         android:autofillHints="" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textSize="18sp"/>
+
     <EditText
         android:id="@+id/edit_text_description_volunteering"
         android:layout_width="match_parent"
@@ -24,6 +36,12 @@
         android:hint="@string/description"
         android:inputType="textMultiLine"
         android:autofillHints="" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hours:"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/edit_text_hours_volunteering"
