@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Octosloths" parent="Theme.MaterialComponents."> <!-- trying no action bar, realized can vary theme on an activity basis -->
+    <style name="Theme.Octosloths" parent="Theme.MaterialComponents.DayNight.DarkActionBar"> <!-- trying no action bar, realized can vary theme on an activity basis -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>

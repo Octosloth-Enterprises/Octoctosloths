@@ -14,7 +14,8 @@
         <activity android:name=".AddNoteActivityBasic"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".AddNoteActivityAward"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.Octosloths.NoActionBar"/>
         <activity android:name=".AddNoteActivityEducation"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".AddNoteActivityExtracurricular"

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Calendar;
 
@@ -35,6 +36,8 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private DatePicker datePickerEnd;
+
+    private Intent intent;
 
     // entry type to pass back to main
     public static String ENTRY_TYPE = "AWARD";
@@ -90,11 +93,15 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
         Log.v("AddNoteActivityAward: ", "onCreate entered");
 
         // getting menu bar and setting icons
+        // setting toolbar and close icon to the left
+        Toolbar toolbar = findViewById(R.id.toolbar_add_note_award);
+        setSupportActionBar(toolbar); // setting toolbar as action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
 
-
-        Intent intent = getIntent(); // getting intent that started this activity
+        // intent is a class variable
+        intent = getIntent(); // getting intent that started this activity
 
 
         if(intent.hasExtra(MainActivity.EXTRA_ID)) { // we only sent id for editing
@@ -175,6 +182,8 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { // param item is the item that is clicked
 
         switch(item.getItemId()) { // switch for one case
+            case android.R.id.home:
+                finish(); // hopefully this closes the activity
             case R.id.save_note:
                 saveNote();
                 return true;
