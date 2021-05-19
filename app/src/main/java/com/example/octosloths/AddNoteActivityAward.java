@@ -169,11 +169,11 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
         finish(); // closes this activity, when saved this page will disappear
     }
 
-    @Override
+   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.add_note_menu, menu); // tells system to use add note menu as the menu of this activity
-
+        // is this a conflict with the toolbar?
         return true;
 
     }

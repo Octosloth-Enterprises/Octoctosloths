@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
@@ -396,8 +397,7 @@ public class DisplayActivityBasic extends AppCompatActivity implements Navigatio
                 break;
             case R.id.nav_home: //opens mainactivity
 
-                Intent intent6 = new Intent(DisplayActivityBasic.this, MainActivity.class);
-                startActivityForResult(intent6, CHANGE_PAGE_REQUEST);
+                NavUtils.navigateUpFromSameTask(this);
 
                 break;
         }

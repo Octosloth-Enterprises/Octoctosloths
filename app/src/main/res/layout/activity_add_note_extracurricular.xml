@@ -1,75 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".AddNoteActivityExtracurricular">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title:"
-        android:textSize="18sp"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:id="@+id/toolbar_add_note_extracurricular"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <EditText
-        android:id="@+id/edit_text_title_extracurricular"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title"
-        android:inputType="text"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="65sp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description:"
-        android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title:"
+            android:textSize="18sp"/>
 
-    <EditText
-        android:id="@+id/edit_text_description_extracurricular"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description"
-        android:inputType="textMultiLine"/>
+        <EditText
+            android:id="@+id/edit_text_title_extracurricular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            android:inputType="text"/>
 
-    <TextView
-        android:id="@+id/textView_extracurricular"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/start_date"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description:"
+            android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/textView2_extracurricular"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:text="@string/end_date"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:translationX="194dp"
-        android:translationY="-24dp" />
+        <EditText
+            android:id="@+id/edit_text_description_extracurricular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="textMultiLine"/>
 
-    <TextView
-        android:id="@+id/textView7_extracurricular"
-        android:layout_width="179dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/new_start_date"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/textView_extracurricular"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/start_date"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textView8_extracurricular"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/new_end_date"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:translationX="194dp"
-        android:translationY="-24dp" />
+        <TextView
+            android:id="@+id/textView2_extracurricular"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/end_date"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:translationX="194dp"
+            android:translationY="-24dp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView7_extracurricular"
+            android:layout_width="179dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="@string/new_start_date"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView8_extracurricular"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_end_date"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:translationX="194dp"
+            android:translationY="-24dp" />
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

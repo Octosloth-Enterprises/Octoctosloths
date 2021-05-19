@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Calendar;
 
@@ -129,6 +130,9 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
         // numberPickerPriority.setMaxValue(10);
 
         // getting menu bar and setting icons
+        Toolbar toolbar = findViewById(R.id.toolbar_add_note_extracurricular);
+        setSupportActionBar(toolbar); // setting toolbar as action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
 
@@ -225,6 +229,8 @@ public class AddNoteActivityExtracurricular extends AppCompatActivity { // for t
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { // param item is the item that is clicked
 
         switch(item.getItemId()) { // switch for one case
+            case android.R.id.home:
+                finish(); // hopefully this closes the activity
             case R.id.save_note:
                 saveNote();
                 return true;

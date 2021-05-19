@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Calendar;
 
@@ -125,6 +126,9 @@ public class AddNoteActivityEducation extends AppCompatActivity { // for the add
         Log.v("AddNoteActivity: ", "onCreate entered");
 
         // getting menu bar and setting icons
+        Toolbar toolbar = findViewById(R.id.toolbar_add_note_education);
+        setSupportActionBar(toolbar); // setting toolbar as action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
 
@@ -197,6 +201,7 @@ public class AddNoteActivityEducation extends AppCompatActivity { // for the add
         data.putExtra(MainActivity.EXTRA_HOURS, hrs);
         data.putExtra(MainActivity.EXTRA_START_DATE, startDateStr); // start date sent over with an extra
         data.putExtra(MainActivity.EXTRA_END_DATE, endDateStr);
+        data.putExtra(MainActivity.EXTRA_ENTRY_TYPE, ENTRY_TYPE);
 
 
         // for update situation
@@ -222,6 +227,8 @@ public class AddNoteActivityEducation extends AppCompatActivity { // for the add
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { // param item is the item that is clicked
 
         switch(item.getItemId()) { // switch for one case
+            case android.R.id.home:
+                finish(); // hopefully this closes the activity
             case R.id.save_note:
                 saveNote();
                 return true;
