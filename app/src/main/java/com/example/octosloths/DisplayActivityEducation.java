@@ -394,6 +394,12 @@ public class DisplayActivityEducation extends AppCompatActivity implements Navig
                 startActivityForResult(intent5, ADD_NOTE_REQUEST);
 
                 break;
+            case R.id.nav_home: //opens mainactivity
+
+                Intent intent6 = new Intent(DisplayActivityEducation.this, MainActivity.class);
+                startActivityForResult(intent6, CHANGE_PAGE_REQUEST);
+
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);

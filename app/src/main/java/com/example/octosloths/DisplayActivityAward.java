@@ -394,6 +394,13 @@ public class DisplayActivityAward extends AppCompatActivity implements Navigatio
                 startActivityForResult(intent5, ADD_NOTE_REQUEST);
 
                 break;
+
+            case R.id.nav_home: //opens mainactivity
+
+                Intent intent6 = new Intent(DisplayActivityAward.this, MainActivity.class);
+                startActivityForResult(intent6, CHANGE_PAGE_REQUEST);
+
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);

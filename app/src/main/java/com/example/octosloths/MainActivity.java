@@ -520,7 +520,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // start a new intent for displaying all the basic notes in a new layout
                 // main activity is analogous to all notes, but we can call it "home"
                 Intent intent1 = new Intent(MainActivity.this, DisplayActivityBasic.class);
-                startActivityForResult(intent1, ADD_NOTE_REQUEST);
+                startActivityForResult(intent1, CHANGE_PAGE_REQUEST);
                 break;
 
             case R.id.nav_awardentry: //opens Award Entries fragment
@@ -528,7 +528,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         // new AwardEntryFragment()).commit();
 
                 Intent intent2 = new Intent(MainActivity.this, DisplayActivityAward.class);
-                startActivityForResult(intent2, ADD_NOTE_REQUEST);
+                startActivityForResult(intent2, CHANGE_PAGE_REQUEST);
 
                 break;
 
@@ -537,7 +537,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         // new EducationEntryFragment()).commit();
 
                 Intent intent3 = new Intent(MainActivity.this, DisplayActivityEducation.class);
-                startActivityForResult(intent3, ADD_NOTE_REQUEST);
+                startActivityForResult(intent3, CHANGE_PAGE_REQUEST);
 
                 break;
 
@@ -546,7 +546,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         // new ExtracurricularEntryFragment()).commit();
 
                 Intent intent4 = new Intent(MainActivity.this, DisplayActivityExtracurricular.class);
-                startActivityForResult(intent4, ADD_NOTE_REQUEST);
+                startActivityForResult(intent4, CHANGE_PAGE_REQUEST);
 
                 break;
             case R.id.nav_volunteerentry: //opens Volunteer Entries fragment
@@ -554,7 +554,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         // new VolunteerEntryFragment()).commit();
 
                 Intent intent5 = new Intent(MainActivity.this, DisplayActivityVolunteering.class);
-                startActivityForResult(intent5, ADD_NOTE_REQUEST);
+                startActivityForResult(intent5, CHANGE_PAGE_REQUEST);
+
+                break;
+
+            case R.id.nav_home: //opens mainactivity
+
+                Intent intent6 = new Intent(MainActivity.this, MainActivity.class);
+                startActivityForResult(intent6, CHANGE_PAGE_REQUEST);
 
                 break;
         }
