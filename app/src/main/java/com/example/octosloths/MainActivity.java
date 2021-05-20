@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 noteViewModel.delete(noteAdapter.getNoteAt(viewHolder.getAdapterPosition())); // deleting note at adapter pos
-                Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
             }
         })).attachToRecyclerView(recyclerView); // must attach else will not work
 
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String endDateStr = m2+"/"+d2+"/"+y2;
 
                     // for debugging purposes
-                    Toast.makeText(MainActivity.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(MainActivity.this, "startDateInt: "+startDateStr, Toast.LENGTH_SHORT).show();
 
                     // putting the start and end dates as string extras
                     intent.putExtra(EXTRA_START_DATE, startDateStr);
@@ -430,14 +430,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             noteViewModel.insert(note);
 
             // toast for check
-            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
         }
         else if(requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) { // for edit situation
             int id = data.getIntExtra(EXTRA_ID, -1);
 
 
             if(id == -1) { // if for some reason invalid id
-                Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -482,10 +482,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             note.setId(id);
             noteViewModel.update(note);
 
-            Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
         }
         else { // if we leave the activity via the back button
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -503,7 +503,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.delete_all_notes:
                 noteViewModel.deleteAllNotes();
-                Toast.makeText(this, "All notes deleted", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "All notes deleted", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

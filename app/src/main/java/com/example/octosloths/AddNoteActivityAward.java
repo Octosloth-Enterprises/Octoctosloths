@@ -75,7 +75,7 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
                month = month + 1;
                String date = month + "/" + dayOfMonth + "/" + year; // displaying date to user
                mDisplayDate.setText(date);
-               Toast.makeText(AddNoteActivityAward.this, "set display text 1 to: " + mDisplayDate.getId(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(AddNoteActivityAward.this, "set display text 1 to: " + mDisplayDate.getId(), Toast.LENGTH_SHORT).show();
 
                 // assigns current view to start date
                datePickerEnd = view;
@@ -133,7 +133,7 @@ public class AddNoteActivityAward extends AppCompatActivity { // for the adding 
         // checking fields are not empty
         if(title.trim().isEmpty() || description.trim().isEmpty()) {
             // show toast message
-            Toast.makeText(this, "Please insert a title and description", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Please insert a title and description", Toast.LENGTH_SHORT).show();
             return;
         }
 
